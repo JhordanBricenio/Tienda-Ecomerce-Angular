@@ -6,15 +6,8 @@
     <div class="navbar navbar-expand-lg navbar-light bg-light navbar-sticky" data-fixed-element>
         <div class="container px-0 px-xl-3">
             <a href="index.html" class="navbar-brand order-lg-1 mr-0 pr-lg-3 mr-lg-4">
-                <img src="assets/img/ecommerce/logo.svg" alt="Createx Logo" width="130">
+                <img src="assets/img/tactical.png" alt="Tactical Logo" width="80">
             </a>
-            <!-- Search desktop -->
-            <div class="input-group-overlay ml-4 d-lg-block d-none order-lg-3" style="max-width: 21rem;">
-                <input class="form-control appended-form-control" type="text" placeholder="Search for products...">
-                <div class="input-group-append-overlay">
-                    <span class="input-group-text"><i class="cxi-search lead align-middle"></i></span>
-                </div>
-            </div>
             <!-- Toolbar -->
             <div class="d-flex align-items-center order-lg-3">
                 <ul class="nav nav-tools flex-nowrap">
@@ -58,11 +51,11 @@
                         <a href="index.html" class="nav-link active">Home</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Shop</a>
+                        <a [routerLink]="['/productos']" routerLink="active" class="nav-link dropdown-toggle" data-toggle="dropdown">Tienda</a>
                         <ul class="dropdown-menu">
-                            <li><a href="shop-catalog.html" class="dropdown-item">Catalog with Filters</a></li>
-                            <li><a href="shop-single.html" class="dropdown-item">Single Product</a></li>
-                            <li><a href="checkout.html" class="dropdown-item">Checkout</a></li>
+                            <li *ngFor="let categoria of categorias">
+                                <a  class="dropdown-item">{{categoria.nombre}}</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown mega-dropdown">
