@@ -26,7 +26,6 @@ export class ProductoService {
       }),
       map((response: any) => {
         (response.content as Product[]).map((product) => {
-         // product.titulo = product.titulo.toUpperCase();
           return product;
         });
         return response;
@@ -36,6 +35,14 @@ export class ProductoService {
 
   getCategorias(): Observable<Categoria[]> {
     return this.http.get<Categoria[]>(this.url + '/products/categories').pipe(
+      catchError(e => {
+        return throwError(() => e);
+      })
+    );
+  }
+
+  getProductsSlug(slug): Observable<any> {
+    return this.http.get(this.url +'/products' + '/slug/'+ slug).pipe(
       catchError(e => {
         return throwError(() => e);
       })

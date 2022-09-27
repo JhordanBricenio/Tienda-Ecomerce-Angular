@@ -1,0 +1,31 @@
+<div class="col-6 float-right">
+    <div class="card-footer">
+        <nav aria-label="Page navigation example">
+          <ul *ngIf="paginas?.length > 0" class="pagination">
+            <li class="page-item" *ngIf="pagination.number > 0">
+              <a href="#" class="page-link" [routerLink]="['/productos/page', pagination.number - 1]">&laquo;</a>
+            </li>
+      
+            <li [ngClass]="pagination.first?'disabled page-item':'page-item'">
+              <a class="page-link" [routerLink]="['/productos/page', 0]">first</a>
+          </li>
+      
+            <li class="page-item" *ngFor="let pagina of paginas" [ngClass]="pagina - 1 == pagination.number ? 'active' : ''">
+              <span class="page-link" *ngIf="pagina - 1 == pagination.number">{{
+                pagina
+                }}</span>
+              <a *ngIf="pagina - 1 != pagination.number" class="page-link" [routerLink]="['/productos/page', pagina - 1]">{{
+                pagina }}</a>
+            </li>
+      
+            <li [ngClass]="pagination.last ? 'disabled page-item' : 'page-item'">
+              <a class="page-link" [routerLink]="['/productos/page', pagination.totalPages - 1]">Last</a>
+            </li>
+      
+            <li class="page-item" *ngIf="pagination.number < pagination.totalPages - 1">
+              <a class="page-link" [routerLink]="['/productos/page', pagination.number + 1]"><i class="cxi-arrow-right"></i></a>
+            </li>
+          </ul>
+        </nav>
+    </div>
+</div>

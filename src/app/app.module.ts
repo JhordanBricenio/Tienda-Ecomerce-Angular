@@ -11,6 +11,8 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { NavComponent } from './components/nav/nav.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { IndexProductoComponent } from './components/productos/index-producto/index-producto.component';
+import { PaginationComponent } from './components/productos/pagination/pagination.component';
+import { ShowProductosComponent } from './components/productos/show-productos/show-productos.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { IndexProductoComponent } from './components/productos/index-producto/in
     InicioComponent,
     NavComponent,
     FooterComponent,
-    IndexProductoComponent
+    IndexProductoComponent,
+    PaginationComponent,
+    ShowProductosComponent
   ],
   imports: [
     BrowserModule,
