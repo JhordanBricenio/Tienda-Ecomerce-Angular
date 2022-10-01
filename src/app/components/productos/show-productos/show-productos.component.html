@@ -1,5 +1,5 @@
 <app-nav></app-nav>
-<main class="cs-page-wrapper">
+<main class="container cs-page-wrapper">
   <!-- Breadcrumb -->
   <nav class="bg-secondary mb-3" aria-label="breadcrumb">
     <div class="container">
@@ -17,11 +17,11 @@
   <!-- Page title -->
   <section class="container d-md-flex align-items-center justify-content-between py-3 py-md-4 mb-3">
     <h1 *ngIf="producto" class="mb-2 mb-md-0">{{producto.titulo}}</h1>
-    <span class="text-muted"><strong>Art. No.</strong> 183260098</span>
+    <span *ngIf="producto" class="text-muted"><strong>Art. No.</strong> {{producto.slug}}</span>
   </section>
 
   <!-- Single product -->
-  <section class="container py-md-6 py-5 mb-2">
+  <section class="container-fluid py-md-6 py-5 mb-2">
     <div class="row">
       <div class="col-md-6 mb-md-0 mb-4">
 
@@ -30,7 +30,7 @@
           <div class="cs-carousel-inner" data-carousel-options=''>
 
             <!-- Product gallery item -->
-            <a  class="cs-gallery-item"  href="http://localhost:9090/api/upload/img/{{producto.imagen}}"
+            <a class="cs-gallery-item" href="http://localhost:9090/api/upload/img/{{producto.imagen}}"
               data-sub-html='<h6 class="text-light">Gallery image caption #1</h6>'>
               <img  *ngIf="producto?.imagen" src="http://localhost:9090/api/upload/img/{{producto.imagen}}"
                     alt="{{producto.imagen}}"  class="rounded">
@@ -116,6 +116,7 @@
 
         <!-- Ordering form -->
         <form class="row">
+          <!--
           <div class="col-12">
             <div class="form-group">
               <label for="pink">Color</label>
@@ -148,6 +149,7 @@
               </div>
             </div>
           </div>
+          -->
           <div class="col-sm-8 order-sm-1 order-2">
             <div class="form-group">
               <label for="size">Size</label>
@@ -163,7 +165,7 @@
             <a href="#modal-sizing" data-toggle="modal"
               class="d-inline-block mt-sm-4 mb-sm-0 mb-4 pt-sm-3 font-weight-bold text-decoration-0 text-dark">
               <i class="cxi-hanger mr-2"></i>
-              Size chart
+              Tallas
             </a>
           </div>
           <div class="col-lg-2 col-4 order-lg-3 order-3">
@@ -177,15 +179,15 @@
             </div>
           </div>
           <div class="col-lg-6 order-lg-4 order-4">
-            <button class="btn btn-block btn-primary">
+            <button class="btn btn-block btn-success">
               <i class="cxi-cart mr-2"></i>
-              Add to cart
+              Al carrito
             </button>
           </div>
           <div class="col-lg-4 col-8 order-lg-5 order-2">
-            <button class="btn btn-block btn-outline-primary px-lg-4">
+            <button class="btn btn-block btn-outline-danger px-lg-4">
               <i class="cxi-heart mr-2"></i>
-              Favourite
+              A Deseos
             </button>
           </div>
         </form>
@@ -207,7 +209,7 @@
             <div class="collapse" id="delivery" aria-labelledby="delivery-card" data-parent="#productTerms">
               <div class="card-body">
                 <p class="font-size-sm">
-                  Free standard shipping on orders <strong>over $35</strong> before tax, plus free returns.
+                  Envío estándar gratuito en pedidos <strong>superiores a $ 35</strong> antes de impuestos, más devoluciones gratuitas.
                 </p>
 
                 <!-- Delivery table -->
@@ -248,18 +250,18 @@
             <div class="card-header" id="return-card">
               <h6 class="accordion-heading">
                 <a class="collapsed" href="#return" role="button" data-toggle="collapse" aria-expanded="false"
-                  aria-controls="return">Return
+                  aria-controls="return">Devoluciones
                   <span class="accordion-indicator"></span>
                 </a>
               </h6>
             </div>
             <div class="collapse" id="return" aria-labelledby="return-card" data-parent="#productTerms">
               <p class="font-size-sm">
-                You have <strong>60 days</strong> to return the item(s) using any of the following methods:
+                Tiene <strong>60 días</strong> para devolver los artículos utilizando cualquiera de los siguientes métodos:
               </p>
               <ul class="mb-4 pl-3">
-                <li>Free store return</li>
-                <li>Free returns via USPS Dropoff Service</li>
+                <li>Devolución gratuita a la tienda</li>
+                <li>Devoluciones gratuitas a través del servicio de entrega de USPS</li>
               </ul>
             </div>
           </div>
@@ -267,7 +269,7 @@
 
         <!-- Share -->
         <div class="mb-5 text-nowrap">
-          <h6 class="d-inline-block align-middle mr-2 mb-0">Share:</h6>
+          <h6 class="d-inline-block align-middle mr-2 mb-0">Compartir:</h6>
           <a href="#" class="social-btn sb-solid align-middle mr-2" data-toggle="tooltip" title="Facebook">
             <i class="cxi-facebook"></i>
           </a>
@@ -282,14 +284,14 @@
         <!-- Payment -->
         <div class="pb-3 text-nowrap" data-simplebar data-simplebar-auto-hide="false">
           <a href="#" class="d-inline-block mb-3 mr-xl-4 mr-3">
-            <img src="../../assets/img/ecommerce/shop/single/cards/visa.jpg" alt="Visa" class="border rounded">
+            <img src="../../assets/img/visa.jpg" alt="Visa" class="border rounded">
           </a>
           <a href="#" class="d-inline-block mb-3 mr-xl-4 mr-3">
-            <img src="../../assets/img/ecommerce/shop/single/cards/master-card.jpg" alt="Mastercard"
+            <img src="../../assets/img/master-card.jpg" alt="Mastercard"
               class="border rounded">
           </a>
           <a href="#" class="d-inline-block mb-3">
-            <img src="../../assets/img/ecommerce/shop/single/cards/pay-pal.jpg" alt="PayPal" class="border rounded">
+            <img src="../../assets/img/pay-pal.jpg" alt="PayPal" class="border rounded">
           </a>
         </div>
       </div>
@@ -300,9 +302,12 @@
     <section class="container my-lg-2 py-2 py-md-4">
       <div class="row">
         <div class="col-lg-7 col-md-8 mb-md-0 mb-4">
-          <h3 class="h5 mb-3">Details</h3>
-          <p>Id habitant tempor aliquam vulputate enim velit tincidunt sed. Urna sed facilisis nulla feugiat amet
-            venenatis. Id suspendisse ut quis tellus aliquam pellentesque neque, semper donec.</p>
+          <h3 class="h5 mb-3">Detalles</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl nec aliquam
+            tincidunt, nunc nibh luctus elit, eget aliquam nunc nisl sit amet mauris. Sed euismod, nisl
+            nec aliquam tincidunt, nunc nibh luctus elit, eget aliquam nunc nisl sit amet mauris.
+          </p>
           <ul class="pl-3">
             <li>Brand: Jordan</li>
             <li>Color: gray / red / yellow</li>
@@ -313,121 +318,12 @@
             <li>Padded cuff with inner nodes designed to offer comfort and support around the Achilles tendon</li>
           </ul>
           <hr class="my-4">
-          <h3 class="h5 mb-3">Fabric</h3>
+          <h3 class="h5 mb-3">Fabricación</h3>
           <ul class="pl-3">
             <li>Upper: 50% real leather, 50% textile</li>
             <li>Lining: 100% textile</li>
             <li>Sole: 100% other materials</li>
           </ul>
-          <hr class="my-4">
-          <h3 class="h5 mb-3">Care</h3>
-          <ul class="pl-0">
-            <li class="media">
-              <img src="../../assets/img/ecommerce/shop/single/care/hand-wash.svg" alt="Icon" class="d-block mr-3">
-              <div class="media-body pl-1">
-                Hand wash only (30°)
-              </div>
-            </li>
-            <li class="media">
-              <img src="../../assets/img/ecommerce/shop/single/care/no-ironing.svg" alt="Icon" class="d-block mr-3">
-              <div class="media-body pl-1">
-                No ironing
-              </div>
-            </li>
-            <li class="media">
-              <img src="../../assets/img/ecommerce/shop/single/care/no-bleach.svg" alt="Icon" class="d-block mr-3">
-              <div class="media-body pl-1">
-                Do not use any bleach
-              </div>
-            </li>
-            <li class="media">
-              <img src="../../assets/img/ecommerce/shop/single/care/no-tumble-dry.svg" alt="Icon" class="d-block mr-3">
-              <div class="media-body pl-1">
-                Do not tumble dry
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="col-md-4 offset-lg-1">
-
-          <!-- Product card carousel -->
-          <div class="card card-product">
-            <div class="card-product-img">
-              <div class="cs-carousel cs-controls-onhover">
-                <a class="cs-carousel-inner">
-                  <div><img class="card-img-top"
-                      src="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg" alt="Product image">
-                  </div>
-
-                </a>
-              </div>
-              <div class="card-product-widgets-top">
-                <div class="ml-auto star-rating">
-                  <i class="sr-star cxi-star-filled active"></i>
-                  <i class="sr-star cxi-star-filled active"></i>
-                  <i class="sr-star cxi-star-filled active"></i>
-                  <i class="sr-star cxi-star-filled active"></i>
-                  <i class="sr-star cxi-star"></i>
-                </div>
-              </div>
-              <div class="card-product-widgets-bottom">
-                <a class="btn-wishlist ml-auto" href="#" data-toggle="tooltip" data-placement="left"
-                  title="Add to wishlist"></a>
-              </div>
-            </div>
-            <div class="card-body pb-2" style="background-color: white;">
-              <h3 class="card-product-title text-truncate mb-2">
-                <a href="#" class="nav-link">Basic hooded sweatshirt in pink</a>
-              </h3>
-              <div class="d-flex align-items-center">
-                <span class="h5 d-inline-block text-danger mb-0">$15.50</span>
-                <del class="d-inline-block ml-2 pl-1 text-muted">$31.00</del>
-              </div>
-              <div class="d-flex align-items-center mb-2 pb-1">
-                <div class="mt-n2">
-                  <div class="custom-control cs-custom-size-option cs-custom-size-option-sm custom-control-inline">
-                    <input type="radio" class="custom-control-input" name="size-01" id="l-1" checked>
-                    <label for="l-1" class="cs-custom-option-label">L</label>
-                  </div>
-                  <div class="custom-control cs-custom-size-option cs-custom-size-option-sm custom-control-inline">
-                    <input type="radio" class="custom-control-input" name="size-01" id="m-1">
-                    <label for="m-1" class="cs-custom-option-label">M</label>
-                  </div>
-                  <div class="custom-control cs-custom-size-option cs-custom-size-option-sm custom-control-inline">
-                    <input type="radio" class="custom-control-input" name="size-01" id="s-1">
-                    <label for="s-1" class="cs-custom-option-label">S</label>
-                  </div>
-                </div>
-                <div class="ml-auto">
-                  <div class="custom-control cs-custom-color-option cs-custom-color-option-sm custom-control-inline">
-                    <input type="radio" class="custom-control-input" name="color-01" id="beige-1" value="Beige" checked>
-                    <label for="beige-1" class="cs-custom-option-label">
-                      <span class="cs-color-swatch" style="background-color: #dead9c;"></span>
-                    </label>
-                  </div>
-                  <div class="custom-control cs-custom-color-option cs-custom-color-option-sm custom-control-inline">
-                    <input type="radio" class="custom-control-input" name="color-01" id="blue-1" value="Blue">
-                    <label for="blue-1" class="cs-custom-option-label">
-                      <span class="cs-color-swatch" style="background-color: #7998d1;"></span>
-                    </label>
-                  </div>
-                  <div class="custom-control cs-custom-color-option cs-custom-color-option-sm custom-control-inline">
-                    <input type="radio" class="custom-control-input" name="color-01" id="white-1" value="White">
-                    <label for="white-1" class="cs-custom-option-label">
-                      <span class="cs-color-swatch" style="background-color: #f4f4f4;"></span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <button type="button" class="btn btn-primary btn-block">
-                <i class="cxi-cart align-middle mt-n1 mr-2"></i>
-                Add to cart
-              </button>
-            </div>
-            <div class="card-footer">
-
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -441,7 +337,7 @@
 
           <!-- Rating -->
           <div class="col-sm-5 mb-sm-0 mb-4">
-            <h3 class="h2 mb-3 pb-1">12 reviews</h3>
+            <h3 class="h2 mb-3 pb-1">12 reseñas</h3>
             <div class="star-rating mb-3 pb-1">
               <i class="sr-star cxi-star-filled active"></i>
               <i class="sr-star cxi-star-filled active"></i>
@@ -451,7 +347,7 @@
             </div>
             <span class="font-size-sm text-muted">
               9 out of 12 (75%) <br>
-              Customers recommended this product
+              Los clientes recomendaron este producto
             </span>
           </div>
 
@@ -537,7 +433,7 @@
 
         <!-- Button + sorting -->
         <div class="d-flex align-items-center justify-content-between mb-4 pb-2 pb-sm-4">
-          <a href="#modal-review" data-toggle="modal" class="btn btn-primary">Leave a review</a>
+          <a href="#modal-review" data-toggle="modal" class="btn btn-info">Deja un comentario</a>
           <div class="form-inline">
             <label for="sort-orders" class="d-none d-sm-block font-weight-bold mr-2 pr-1">Sort by</label>
             <select id="sort-orders" class="custom-select">
@@ -612,69 +508,6 @@
           </div>
         </div>
 
-        <!-- Review -->
-        <div class="mb-4 pb-4 border-bottom">
-          <div class="row">
-            <div class="col-md-3 col-sm-4 mb-sm-0 mb-3">
-              <h3 class="mb-2 font-size-lg">Albert Flores</h3>
-              <span class="d-block mb-3 font-size-sm text-muted">November 5, 2020</span>
-              <div class="mt-n1 star-rating">
-                <i class="sr-star cxi-star-filled active"></i>
-                <i class="sr-star cxi-star-filled active"></i>
-                <i class="sr-star cxi-star-filled active"></i>
-                <i class="sr-star cxi-star-filled active"></i>
-                <i class="sr-star cxi-star"></i>
-              </div>
-            </div>
-            <div class="col">
-              <p class="mb-3">Et, enim pellentesque ut malesuada interdum. Id odio proin molestie ac tellus ornare
-                lectus amet semper. Bibendum non nulla leo pharetra, mi ultrices proin rhoncus diam.</p>
-              <div class="d-flex justify-content-end">
-                <a class="nav-link mr-3 p-0 font-size-sm" href="#">
-                  <i class="cxi-like mr-2 font-size-base align-middle mt-n1 text-success"></i>
-                  0
-                </a>
-                <a class="nav-link p-0 font-size-sm" href="#">
-                  <i class="cxi-dislike mr-2 font-size-base align-middle mt-n1 text-danger"></i>
-                  0
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Review -->
-        <div class="mb-4 pb-4 border-bottom">
-          <div class="row">
-            <div class="col-md-3 col-sm-4 mb-sm-0 mb-3">
-              <h3 class="mb-2 font-size-lg">Marvin McKinney</h3>
-              <span class="d-block mb-3 font-size-sm text-muted">October 13, 2020</span>
-              <div class="mt-n1 star-rating">
-                <i class="sr-star cxi-star-filled active"></i>
-                <i class="sr-star cxi-star-filled active"></i>
-                <i class="sr-star cxi-star-filled active"></i>
-                <i class="sr-star cxi-star-filled active"></i>
-                <i class="sr-star cxi-star-filled active"></i>
-              </div>
-            </div>
-            <div class="col">
-              <p class="mb-3">Eu duis ac, faucibus et egestas morbi elementum urna in. Feugiat natoque vestibulum, augue
-                nisi. Vulputate vitae felis quis mauris morbi massa ut. Dolor in amet volutpat facilisi luctus duis
-                mauris.</p>
-              <div class="d-flex justify-content-end">
-                <a class="nav-link mr-3 p-0 font-size-sm" href="#">
-                  <i class="cxi-like mr-2 font-size-base align-middle mt-n1 text-success"></i>
-                  9
-                </a>
-                <a class="nav-link p-0 font-size-sm" href="#">
-                  <i class="cxi-dislike mr-2 font-size-base align-middle mt-n1 text-danger"></i>
-                  2
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Pagination: With icons -->
         <nav class="mt-4 pt-4" aria-label="Reviews pagination">
           <ul class="pagination justify-content-center mb-0">
@@ -705,84 +538,6 @@
       </div>
       <div class="col-md-4 offset-lg-1">
 
-        <!-- Product card carousel -->
-        <div class="card card-product">
-          <div class="card-product-img">
-            <div class="cs-carousel cs-controls-onhover">
-              <a class="cs-carousel-inner">
-                <div><img class="card-img-top"
-                    src="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg" alt="Product image">
-                </div>
-
-              </a>
-            </div>
-            <div class="card-product-widgets-top">
-              <div class="ml-auto star-rating">
-                <i class="sr-star cxi-star-filled active"></i>
-                <i class="sr-star cxi-star-filled active"></i>
-                <i class="sr-star cxi-star-filled active"></i>
-                <i class="sr-star cxi-star-filled active"></i>
-                <i class="sr-star cxi-star"></i>
-              </div>
-            </div>
-            <div class="card-product-widgets-bottom">
-              <a class="btn-wishlist ml-auto" href="#" data-toggle="tooltip" data-placement="left"
-                title="Add to wishlist"></a>
-            </div>
-          </div>
-          <div class="card-body pb-2" style="background-color: white;">
-            <h3 class="card-product-title text-truncate mb-2">
-              <a href="#" class="nav-link">Basic hooded sweatshirt in pink</a>
-            </h3>
-            <div class="d-flex align-items-center">
-              <span class="h5 d-inline-block text-danger mb-0">$15.50</span>
-              <del class="d-inline-block ml-2 pl-1 text-muted">$31.00</del>
-            </div>
-            <div class="d-flex align-items-center mb-2 pb-1">
-              <div class="mt-n2">
-                <div class="custom-control cs-custom-size-option cs-custom-size-option-sm custom-control-inline">
-                  <input type="radio" class="custom-control-input" name="size-01" id="l-1" checked>
-                  <label for="l-1" class="cs-custom-option-label">L</label>
-                </div>
-                <div class="custom-control cs-custom-size-option cs-custom-size-option-sm custom-control-inline">
-                  <input type="radio" class="custom-control-input" name="size-01" id="m-1">
-                  <label for="m-1" class="cs-custom-option-label">M</label>
-                </div>
-                <div class="custom-control cs-custom-size-option cs-custom-size-option-sm custom-control-inline">
-                  <input type="radio" class="custom-control-input" name="size-01" id="s-1">
-                  <label for="s-1" class="cs-custom-option-label">S</label>
-                </div>
-              </div>
-              <div class="ml-auto">
-                <div class="custom-control cs-custom-color-option cs-custom-color-option-sm custom-control-inline">
-                  <input type="radio" class="custom-control-input" name="color-01" id="beige-1" value="Beige" checked>
-                  <label for="beige-1" class="cs-custom-option-label">
-                    <span class="cs-color-swatch" style="background-color: #dead9c;"></span>
-                  </label>
-                </div>
-                <div class="custom-control cs-custom-color-option cs-custom-color-option-sm custom-control-inline">
-                  <input type="radio" class="custom-control-input" name="color-01" id="blue-1" value="Blue">
-                  <label for="blue-1" class="cs-custom-option-label">
-                    <span class="cs-color-swatch" style="background-color: #7998d1;"></span>
-                  </label>
-                </div>
-                <div class="custom-control cs-custom-color-option cs-custom-color-option-sm custom-control-inline">
-                  <input type="radio" class="custom-control-input" name="color-01" id="white-1" value="White">
-                  <label for="white-1" class="cs-custom-option-label">
-                    <span class="cs-color-swatch" style="background-color: #f4f4f4;"></span>
-                  </label>
-                </div>
-              </div>
-            </div>
-            <button type="button" class="btn btn-primary btn-block">
-              <i class="cxi-cart align-middle mt-n1 mr-2"></i>
-              Add to cart
-            </button>
-          </div>
-          <div class="card-footer">
-
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -790,7 +545,7 @@
   <section class="py-5" style="background-color: #e5e8ed;">
     <div class="container my-lg-2 py-2 py-md-4">
       <div class="d-flex align-items-center justify-content-between pb-sm-1 mb-5">
-        <h2 class="h1 pr-3 mb-0">You may be interested in</h2>
+        <h2 class="h1 pr-3 mb-0">Productos Relacionados</h2>
         <div class="tns-custom-controls cs-controls-inverse" id="custom-controls-related" tabindex="0">
           <button type="button" data-controls="prev" tabindex="-1">
             <i class="cxi-arrow-left"></i>
@@ -804,139 +559,29 @@
         <div class="cs-carousel-inner-two" data-carousel-options=''>
 
           <!-- Item -->
-          <div>
+          <div *ngFor="let item of productos">
             <div class="card card-product mx-auto">
               <div class="card-product-img">
-                <a href="#" class="card-img-top">
-                  <img src="https://createx.createx.studio/assets/img/ecommerce/shop/01.jpg" alt="Product image">
+                <a [routerLink]="['/productos/',item.slug ]" target="_blank" class="card-img-top">
+                  <img *ngIf="item.imagen" src="http://localhost:9090/api/upload/img/{{item.imagen}}" alt="{{item.imagen}}">
                 </a>
                 <div class="card-product-widgets-bottom">
-                  <a href="#" class="btn-wishlist ml-auto" data-toggle="tooltip" data-placement="left"
+                  <a [routerLink]="['/productos/',item.slug ]"  target="_blank" class="btn-wishlist ml-auto" data-toggle="tooltip" data-placement="left"
                     title="Add to wishlist"></a>
                 </div>
               </div>
               <div class="card-body bg-0 pb-2">
                 <h3 class="card-product-title text-truncate mb-2">
-                  <a href="#" class="nav-link">Metal bridge sunglasses</a>
+                  <a [routerLink]="['/productos/',item.slug ]"  target="_blank" class="nav-link">{{item.titulo}}</a>
                 </h3>
                 <div class="d-flex align-items-center">
-                  <span class="h5 d-inline-block mb-0">$89.95</span>
+                  <span class="h5 d-inline-block mb-0">{{item.precio}}</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Item -->
-          <div>
-            <div class="card card-product mx-auto">
-              <div class="card-product-img">
-                <a href="#" class="card-img-top">
-                  <img src="https://createx.createx.studio/assets/img/ecommerce/shop/01.jpg" alt="Product image">
-                </a>
-                <div class="card-product-widgets-bottom">
-                  <a href="#" class="btn-wishlist ml-auto" data-toggle="tooltip" data-placement="left"
-                    title="Add to wishlist"></a>
-                </div>
-              </div>
-              <div class="card-body bg-0 pb-2">
-                <h3 class="card-product-title text-truncate mb-2">
-                  <a href="#" class="nav-link">Mid-rise slim cropped fit jeans</a>
-                </h3>
-                <div class="d-flex align-items-center">
-                  <span class="h5 d-inline-block mb-0">$40.00</span>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <!-- Item -->
-          <div>
-            <div class="card card-product mx-auto">
-              <div class="card-product-img">
-                <a href="#" class="card-img-top">
-                  <img src="https://createx.createx.studio/assets/img/ecommerce/shop/01.jpg" alt="Product image">
-                </a>
-                <div class="card-product-widgets-top">
-                  <span class="badge product-badge badge-danger">-50%</span>
-                  <div class="star-rating ml-auto">
-                    <i class="sr-star cxi-star-filled active"></i>
-                    <i class="sr-star cxi-star-filled active"></i>
-                    <i class="sr-star cxi-star-filled active"></i>
-                    <i class="sr-star cxi-star-filled active"></i>
-                    <i class="sr-star cxi-star"></i>
-                  </div>
-                </div>
-                <div class="card-product-widgets-bottom">
-                  <a href="#" class="btn-wishlist ml-auto" data-toggle="tooltip" data-placement="left"
-                    title="Add to wishlist"></a>
-                </div>
-              </div>
-              <div class="card-body bg-0 pb-2">
-                <h3 class="card-product-title text-truncate mb-2">
-                  <a href="shop-single.html" class="nav-link">Leather crossbody bag with chain lace</a>
-                </h3>
-                <div class="d-flex align-items-center">
-                  <span class="h5 d-inline-block text-danger mb-0">$89.50</span>
-                  <del class="d-inline-block ml-2 pl-1 text-muted">$179.00</del>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Item -->
-          <div>
-            <div class="card card-product mx-auto">
-              <div class="card-product-img">
-                <a href="#" class="card-img-top">
-                  <img src="https://createx.createx.studio/assets/img/ecommerce/shop/01.jpg" alt="Product image">
-                </a>
-                <div class="card-product-widgets-top">
-                  <div class="star-rating ml-auto">
-                    <i class="sr-star cxi-star-filled active"></i>
-                    <i class="sr-star cxi-star-filled active"></i>
-                    <i class="sr-star cxi-star-filled active"></i>
-                    <i class="sr-star cxi-star-filled active"></i>
-                    <i class="sr-star cxi-star-filled active"></i>
-                  </div>
-                </div>
-                <div class="card-product-widgets-bottom">
-                  <a href="#" class="btn-wishlist ml-auto" data-toggle="tooltip" data-placement="left"
-                    title="Add to wishlist"></a>
-                </div>
-              </div>
-              <div class="card-body bg-0 pb-2">
-                <h3 class="card-product-title text-truncate mb-2">
-                  <a href="#" class="nav-link">Shirt with insertion lace trims</a>
-                </h3>
-                <div class="d-flex align-items-center">
-                  <span class="h5 d-inline-block mb-0">$49.95</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Item -->
-          <div>
-            <div class="card card-product mx-auto">
-              <div class="card-product-img">
-                <a href="#" class="card-img-top">
-                  <img src="https://createx.createx.studio/assets/img/ecommerce/shop/01.jpg" alt="Product image">
-                </a>
-                <div class="card-product-widgets-bottom">
-                  <a href="#" class="btn-wishlist ml-auto" data-toggle="tooltip" data-placement="left"
-                    title="Add to wishlist"></a>
-                </div>
-              </div>
-              <div class="card-body bg-0 pb-2">
-                <h3 class="card-product-title text-truncate mb-2">
-                  <a href="#" class="nav-link">Chrono watch with gold rim and blue strap</a>
-                </h3>
-                <div class="d-flex align-items-center">
-                  <span class="h5 d-inline-block mb-0">$120.60</span>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs';
 import { Product } from 'src/app/models/producto';
+import { CategoriaService } from 'src/app/sercices/categoria.service';
 import { ProductoService } from 'src/app/sercices/producto.service';
 
 declare var tns;
@@ -14,50 +15,62 @@ declare var lightGallery: any;
 })
 export class ShowProductosComponent implements OnInit {
   public producto: Product;
+  public productos: Product[] = [];
   public slug;
 
   constructor(
     private productoService: ProductoService,
-    private activateRoute: ActivatedRoute
+    private activateRoute: ActivatedRoute,
+    private categoriaService: CategoriaService
   ) {
     this.activateRoute.params.subscribe((params) => {
       this.slug = params['slug'];
       this.productoService.getProductsSlug(this.slug).subscribe((response) => {
         this.producto = response;
+        this.categoriaService.getProductosPorCategoria(this.producto.categoria.id).subscribe(
+          respuesta => {
+            this.productos = respuesta;
+          }
+        );
+
       });
+
+
     });
   }
 
   ngOnInit(): void {
-    tns({
-      container: '.cs-carousel-inner',
-      controlsText: [
-        '<i class="cxi-arrow-left"></i>',
-        '<i class="cxi-arrow-right"></i>',
-      ],
-      navPosition: 'top',
-      controlsPosition: 'top',
-      mouseDrag: !0,
-      speed: 600,
-      autoplayHoverPause: !0,
-      autoplayButtonOutput: !1,
-      navContainer: '#cs-thumbnails',
-      navAsThumbnails: true,
-      gutter: 15,
-    });
-    var e = document.querySelectorAll('.cs-gallery');
-    if (e.length) {
-      for (var t = 0; t < e.length; t++) {
-        lightGallery(e[t], {
-          selector: '.cs-gallery-item',
-          download: !1,
-          videojs: !0,
-          youtubePlayerParams: { modestbranding: 1, showinfo: 0, rel: 0 },
-          vimeoPlayerParams: { byline: 0, portrait: 0 },
-        });
-      }
-    }
 
+    setTimeout(() => {
+      tns({
+        container: '.cs-carousel-inner',
+        controlsText: [
+          '<i class="cxi-arrow-left"></i>',
+          '<i class="cxi-arrow-right"></i>',
+        ],
+        navPosition: 'top',
+        controlsPosition: 'top',
+        mouseDrag: !0,
+        speed: 600,
+        autoplayHoverPause: !0,
+        autoplayButtonOutput: !1,
+        navContainer: '#cs-thumbnails',
+        navAsThumbnails: true,
+        gutter: 15,
+      });
+      var e = document.querySelectorAll('.cs-gallery');
+      if (e.length) {
+        for (var t = 0; t < e.length; t++) {
+          lightGallery(e[t], {
+            selector: '.cs-gallery-item',
+            download: !1,
+            videojs: !0,
+            youtubePlayerParams: { modestbranding: 1, showinfo: 0, rel: 0 },
+            vimeoPlayerParams: { byline: 0, portrait: 0 },
+          });
+        }
+      }
+      
     tns({
       container: '.cs-carousel-inner-two',
       controlsText: [
@@ -92,10 +105,15 @@ export class ShowProductosComponent implements OnInit {
       },
     });
 
-    
-  }
-  getProductosPorCategoria(){
+
+
+    }, 500);
+
+
+
+
+
+
 
   }
-
 }

@@ -1,14 +1,10 @@
-<!-- Header (Topbar + Navbar) -->
 <header class="cs-header">
 
-    <!-- Navbar -->
-    <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page -->
     <div class="navbar navbar-expand-lg navbar-light bg-light navbar-sticky" data-fixed-element>
         <div class="container px-0 px-xl-3">
             <a href="index.html" class="navbar-brand order-lg-1 mr-0 pr-lg-3 mr-lg-4">
                 <img src="assets/img/tactical.png" alt="Tactical Logo" width="80">
             </a>
-            <!-- Toolbar -->
             <div class="d-flex align-items-center order-lg-3">
                 <ul class="nav nav-tools flex-nowrap">
                     <li class="nav-item d-lg-block d-none mb-0">
@@ -54,7 +50,7 @@
                         <a [routerLink]="['/productos']" routerLink="active" class="nav-link dropdown-toggle" data-toggle="dropdown">Tienda</a>
                         <ul class="dropdown-menu">
                             <li *ngFor="let categoria of categorias">
-                                <a  class="dropdown-item">{{categoria.nombre}}</a>
+                                <a  class="dropdown-item" [routerLink]="['/productos/categorias/',categoria.id]" style="cursor:pointer ;">{{categoria.nombre}}</a>
                             </li>
                         </ul>
                     </li>

@@ -10,6 +10,7 @@ const appRoute:Routes=[
     {path:'productos/page/:page', component:IndexProductoComponent},
     {path:'productos/:slug', component:ShowProductosComponent},
     {path:'productos/categorias/:id', component:IndexProductoComponent},
+    {path:'productos/categorias/:id', component:ShowProductosComponent},
 
 ]
 export const appRoutingProviders:any[]=[];
