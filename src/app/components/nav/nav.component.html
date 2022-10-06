@@ -8,17 +8,18 @@
             <div class="d-flex align-items-center order-lg-3">
                 <ul class="nav nav-tools flex-nowrap">
                     <li class="nav-item d-lg-block d-none mb-0">
-                        <a href="account-wishlist.html" class="nav-tool">
-                            <i class="cxi-heart nav-tool-icon"></i>
-                            <span class="nav-tool-label">2</span>
+                        <a [routerLink]="['/login']" class="nav-tool">
+                            <i class="cxi-profile nav-tool-icon"></i>
+                            <span class="nav-tool-label">Iniciar Sesión</span>
                         </a>
                     </li>
                     <li class="divider-vertical mb-0 d-lg-block d-none"></li>
                     <li class="nav-item align-self-center mb-0">
-                        <a href="#" class="nav-tool pr-lg-0" data-toggle="offcanvas" data-target="cart">
+                        <a style="cursor: pointer;" class="nav-tool pr-lg-0" (click)="opModalCart()" >
                             <i class="cxi-cart nav-tool-icon"></i>
-                            <span class="badge badge-success align-middle mt-n1 ml-2 px-2 py-1 font-size-xs">4</span>
+                            <span class="badge badge-success align-middle mt-n1 ml-2 px-2 py-1 font-size-xs">{{carritos.length}}</span>
                         </a>
+
                     </li>
                     <li class="divider-vertical mb-0 d-lg-none d-block"></li>
                     <li class="nav-item mb-0">
@@ -44,7 +45,7 @@
                 <!-- Menu -->
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a href="index.html" class="nav-link active">Home</a>
+                        <a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="nav-link">Inicio</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a [routerLink]="['/productos']" routerLink="active" class="nav-link dropdown-toggle" data-toggle="dropdown">Tienda</a>
@@ -137,3 +138,66 @@
         </div>
     </div>
 </header>
+
+<div id="cart" class="cs-offcanvas cs-offcanvas-right">
+
+    <!-- Header -->
+    <div class="cs-offcanvas-cap align-items-center border-bottom">
+      <h2 class="h5 mb-0">Tu carrito ({{carritos.length}})</h2>
+      <button class="close mr-n1" type="button" data-dismiss="offcanvas" aria-label="Close" (click)="opModalCart()" >
+        <span class="h3 font-weight-normal mb-0" aria-hidden="true" >×</span>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="cs-offcanvas-body">
+      <!-- Item -->
+      <div *ngFor="let carrito of carritos" class="media p-4 border-bottom mx-n4">
+        <a   [routerLink]="['/productos/',carrito.producto.slug ]" target="_blank" style="min-width: 80px;">
+          <img *ngIf="carrito.producto?.imagen" src="http://localhost:9090/api/upload/img/{{carrito.producto.imagen}}"
+           width="80" alt="Product thumb" alt="{{carrito.producto.imagen}}">
+        </a>
+        
+        <div class="media-body pl-3">
+          <div class="d-flex justify-content-between">
+            <div class="pr-2">
+              <h3 class="font-size-sm mb-3">
+                <a [routerLink]="['/productos/',carrito.producto.slug ]" target="_blank" class="nav-link font-weight-bold">{{carrito.producto.titulo}}</a>
+              </h3>
+              <ul class="list-unstyled font-size-xs mt-n2 mb-2">
+                <li class="mb-0"><span class="text-muted">Color:</span> Verde</li>
+                <li class="mb-0"><span class="text-muted">Talla:</span> S</li>
+              </ul>
+              <div class="d-flex align-items-center">
+                <input type="number" class="form-control form-control-sm bg-light mr-3" readonly style="width: 4.5rem;" value="{{carrito.cantidad}}">
+                <div class="text-nowrap">
+                   <!-- <strong class="text-danger"></strong>-->
+                 <span style="font-size:1.1rem !important;" class="font-size-xs text-muted">${{carrito.precio}}</span>
+                </div>
+              </div>
+              <button class="btn btn-link btn-sm text-decoration-none px-0 pb-0">
+                Mover a
+                <i class="cxi-heart ml-1"></i>
+              </button>
+            </div>
+            <div class="nav-muted mr-n2">
+              <a class="nav-link px-2 mt-n2"  title="Quitar" style="cursor:pointer;" (click)="eliminarCarrito(carrito.id)">
+                <i class="cxi-delete"></i>
+            </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Footer -->
+    <div class="cs-offcanvas-cap flex-column border-top">
+      <div class="d-flex align-items-center justify-content-between mb-3 pb-1">
+        <span class="text-muted mr-2">Subtotal:</span>
+        <span class="h5 mb-0">${{subTotal}}</span>
+      </div>
+      <a [routerLink]="['/carrito']" class="btn btn-success btn-lg btn-block">
+        <i class="cxi-credit-card font-size-lg mt-n1 mr-1"></i>
+        Checkout
+      </a>
+    </div>
+  </div>

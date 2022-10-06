@@ -56,7 +56,7 @@
             </select>
             <span class="font-size-sm text-muted text-nowrap ml-2 d-none d-lg-block">products per page</span>
           </div>
-            <app-pagination *ngIf="pagination" [pagination]="pagination"></app-pagination>
+          <app-pagination *ngIf="pagination" [pagination]="pagination"></app-pagination>
         </div>
       </div>
     </div>
@@ -111,7 +111,7 @@
               </div>
               <div class="collapse show" id="category" aria-labelledby="category-panel">
                 <div class="cs-widget-data-list cs-filter">
-                 
+
                   <ul class="cs-filter-list list-unstyled pr-3" style="height: 12rem;" data-simplebar
                     data-simplebar-auto-hide="false">
                     <li class="cs-filter-item" *ngFor="let categoria of categorias; let indice= index">
@@ -123,7 +123,7 @@
                         </label>
                       </div>
                     </li>
-                   
+
                   </ul>
                 </div>
               </div>
@@ -179,8 +179,8 @@
             <div class="card card-product mx-auto">
               <div class="card-product-img">
                 <a [routerLink]="['/productos/',producto.slug ]" class="card-img-top">
-                  <img  *ngIf="producto?.imagen" src="http://localhost:9090/api/upload/img/{{producto.imagen}}"
-                    alt="{{producto.imagen}}"  class="img-thumbnail rounded">
+                  <img *ngIf="producto?.imagen" src="http://localhost:9090/api/upload/img/{{producto.imagen}}"
+                    alt="{{producto.imagen}}" class="img-thumbnail rounded">
                 </a>
                 <div class="card-product-widgets-top">
                   <div class="star-rating ml-auto">
@@ -213,9 +213,14 @@
 
                   </div>
                 </div>
-                <button type="button" class="btn btn-success btn-block">
+                <button *ngIf="!btn_cart" (click)="agregarCarrito(producto)" type="button" class="btn btn-success btn-block">
                   <i class="cxi-cart align-middle mt-n1 mr-2"></i>
                   Al carrito
+                </button>
+                <!-- Button with growing spinner and text -->
+                <button *ngIf="btn_cart" type="button" class="btn btn-success btn-block" disabled>
+                  <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                  Agregando...
                 </button>
               </div>
             </div>
@@ -248,7 +253,7 @@
             </select>
             <span class="font-size-sm text-muted text-nowrap ml-2 d-none d-md-block">products per page</span>
           </div>
-            <app-pagination *ngIf="pagination" [pagination]="pagination"></app-pagination>
+          <app-pagination *ngIf="pagination" [pagination]="pagination"></app-pagination>
         </div>
       </div>
     </div>

@@ -152,12 +152,12 @@
           -->
           <div class="col-sm-8 order-sm-1 order-2">
             <div class="form-group">
-              <label for="size">Size</label>
+              <label for="size">Tallas</label>
               <select class="form-control custom-select" id="size">
-                <option>Please select</option>
-                <option>Option item 1</option>
-                <option>Option item 2</option>
-                <option>Option item 3</option>
+                <option>Sellecione una talla</option>
+                <option>Talla 1</option>
+                <option>Talla 2</option>
+                <option>Talla 3</option>
               </select>
             </div>
           </div>
@@ -170,18 +170,23 @@
           </div>
           <div class="col-lg-2 col-4 order-lg-3 order-3">
             <div class="form-group">
-              <select class="form-control custom-select" id="select-input">
-                <option>1</option>
-                <option>2</option>
-                <option>5</option>
-                <option>10</option>
+              <select class="form-control custom-select" id="select-input" name="cantidad" [(ngModel)]="carrito.cantidad" >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
               </select>
             </div>
           </div>
           <div class="col-lg-6 order-lg-4 order-4">
-            <button class="btn btn-block btn-success">
+            <button *ngIf="!btn_cart" class="btn btn-block btn-success" (click)="agregarCarrito()">
               <i class="cxi-cart mr-2"></i>
               Al carrito
+            </button>
+            <!-- Button with growing spinner and text -->
+            <button *ngIf="btn_cart" type="button" class="btn btn-success" disabled>
+              <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+              Agregando...
             </button>
           </div>
           <div class="col-lg-4 col-8 order-lg-5 order-2">
