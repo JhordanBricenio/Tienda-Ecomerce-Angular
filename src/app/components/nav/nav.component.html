@@ -8,16 +8,38 @@
             <div class="d-flex align-items-center order-lg-3">
                 <ul class="nav nav-tools flex-nowrap">
                     <li class="nav-item d-lg-block d-none mb-0">
-                        <a [routerLink]="['/login']" class="nav-tool">
-                            <i class="cxi-profile nav-tool-icon"></i>
-                            <span class="nav-tool-label">Iniciar Sesión</span>
-                        </a>
+
+                    <li style="cursor: pointer;" *ngIf="!authServcice.isAuntenitcated()" [routerLink]="['/login']"
+                        class="nav-tool">
+                        <i class="cxi-profile nav-tool-icon"></i>
+                        <span class="nav-tool-label">Iniciar Sesión</span>
                     </li>
+
+                    <div *ngIf="authServcice.isAuntenitcated()" class="dropdown">
+                        <button [routerLink]="['/']" class="btn btn-outline-secondary dropdown-toggle" type="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            {{authServcice.usuario?.nombres}}
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-dark">
+                            <a [routerLink]="['/cuenta/perfil']" routerLinkActive="active" class="dropdown-item">
+                                <i class="ci-profile me-2"></i>
+                                Perfil
+                                <!-- <span class="badge rounded-pill bg-danger ms-2">3</span>-->
+                            </a>
+                            <button (click)="logout()" class="dropdown-item" type="submit">Cerrar Sessión</button>
+
+                        </div>
+                    </div>
+
+
+
+
                     <li class="divider-vertical mb-0 d-lg-block d-none"></li>
                     <li class="nav-item align-self-center mb-0">
-                        <a style="cursor: pointer;" class="nav-tool pr-lg-0" (click)="opModalCart()" >
+                        <a style="cursor: pointer;" class="nav-tool pr-lg-0" (click)="opModalCart()">
                             <i class="cxi-cart nav-tool-icon"></i>
-                            <span class="badge badge-success align-middle mt-n1 ml-2 px-2 py-1 font-size-xs">{{carritos.length}}</span>
+                            <span
+                                class="badge badge-success align-middle mt-n1 ml-2 px-2 py-1 font-size-xs">{{carritos.length}}</span>
                         </a>
 
                     </li>
@@ -45,13 +67,16 @@
                 <!-- Menu -->
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="nav-link">Inicio</a>
+                        <a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+                            class="nav-link">Inicio</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a [routerLink]="['/productos']" routerLink="active" class="nav-link dropdown-toggle" data-toggle="dropdown">Tienda</a>
+                        <a [routerLink]="['/productos']" routerLink="active" class="nav-link dropdown-toggle"
+                            data-toggle="dropdown">Tienda</a>
                         <ul class="dropdown-menu">
                             <li *ngFor="let categoria of categorias">
-                                <a  class="dropdown-item" [routerLink]="['/productos/categorias/',categoria.id]" style="cursor:pointer ;">{{categoria.nombre}}</a>
+                                <a class="dropdown-item" [routerLink]="['/productos/categorias/',categoria.id]"
+                                    style="cursor:pointer ;">{{categoria.nombre}}</a>
                             </li>
                         </ul>
                     </li>
@@ -143,61 +168,76 @@
 
     <!-- Header -->
     <div class="cs-offcanvas-cap align-items-center border-bottom">
-      <h2 class="h5 mb-0">Tu carrito ({{carritos.length}})</h2>
-      <button class="close mr-n1" type="button" data-dismiss="offcanvas" aria-label="Close" (click)="opModalCart()" >
-        <span class="h3 font-weight-normal mb-0" aria-hidden="true" >×</span>
-      </button>
+        <h2 class="h5 mb-0">Tu carrito ({{carritos.length}})</h2>
+        <button class="close mr-n1" type="button" data-dismiss="offcanvas" aria-label="Close" (click)="opModalCart()">
+            <span class="h3 font-weight-normal mb-0" aria-hidden="true">×</span>
+        </button>
     </div>
 
     <!-- Body -->
     <div class="cs-offcanvas-body">
-      <!-- Item -->
-      <div *ngFor="let carrito of carritos" class="media p-4 border-bottom mx-n4">
-        <a   [routerLink]="['/productos/',carrito.producto.slug ]" target="_blank" style="min-width: 80px;">
-          <img *ngIf="carrito.producto?.imagen" src="http://localhost:9090/api/upload/img/{{carrito.producto.imagen}}"
-           width="80" alt="Product thumb" alt="{{carrito.producto.imagen}}">
-        </a>
-        
-        <div class="media-body pl-3">
-          <div class="d-flex justify-content-between">
-            <div class="pr-2">
-              <h3 class="font-size-sm mb-3">
-                <a [routerLink]="['/productos/',carrito.producto.slug ]" target="_blank" class="nav-link font-weight-bold">{{carrito.producto.titulo}}</a>
-              </h3>
-              <ul class="list-unstyled font-size-xs mt-n2 mb-2">
-                <li class="mb-0"><span class="text-muted">Color:</span> Verde</li>
-                <li class="mb-0"><span class="text-muted">Talla:</span> S</li>
-              </ul>
-              <div class="d-flex align-items-center">
-                <input type="number" class="form-control form-control-sm bg-light mr-3" readonly style="width: 4.5rem;" value="{{carrito.cantidad}}">
-                <div class="text-nowrap">
-                   <!-- <strong class="text-danger"></strong>-->
-                 <span style="font-size:1.1rem !important;" class="font-size-xs text-muted">${{carrito.precio}}</span>
-                </div>
-              </div>
-              <button class="btn btn-link btn-sm text-decoration-none px-0 pb-0">
-                Mover a
-                <i class="cxi-heart ml-1"></i>
-              </button>
-            </div>
-            <div class="nav-muted mr-n2">
-              <a class="nav-link px-2 mt-n2"  title="Quitar" style="cursor:pointer;" (click)="eliminarCarrito(carrito.id)">
-                <i class="cxi-delete"></i>
-            </a>
-            </div>
-          </div>
+        <!-- Si el carrito esta vacio -->
+        <div class="text-center py-4" *ngIf="carritos.length == 0">
+            <i class="cxi-cart h1 mb-3 text-muted"></i>
+            <h3 class="h5 mb-1">Tu carrito esta vacio</h3>
+            <p class="text-muted">Agrega productos al carrito para comprar</p>
+            <a class="btn btn-primary btn-sm" [routerLink]="['/productos']">Ir a la tienda</a>
         </div>
-      </div>
 
-    <!-- Footer -->
-    <div class="cs-offcanvas-cap flex-column border-top">
-      <div class="d-flex align-items-center justify-content-between mb-3 pb-1">
-        <span class="text-muted mr-2">Subtotal:</span>
-        <span class="h5 mb-0">${{subTotal}}</span>
-      </div>
-      <a [routerLink]="['/carrito']" class="btn btn-success btn-lg btn-block">
-        <i class="cxi-credit-card font-size-lg mt-n1 mr-1"></i>
-        Checkout
-      </a>
+
+        <div *ngFor="let carrito of carritos" class="media p-4 border-bottom mx-n4">
+            <a [routerLink]="['/productos/',carrito.producto.slug ]" target="_blank" style="min-width: 80px;">
+                <img *ngIf="carrito.producto?.imagen"
+                    src="http://localhost:9090/api/upload/img/{{carrito.producto.imagen}}" width="80"
+                    alt="Product thumb" alt="{{carrito.producto.imagen}}">
+            </a>
+
+            <div class="media-body pl-3">
+                <div class="d-flex justify-content-between">
+                    <div class="pr-2">
+                        <h3 class="font-size-sm mb-3">
+                            <a [routerLink]="['/productos/',carrito.producto.slug ]" target="_blank"
+                                class="nav-link font-weight-bold">{{carrito.producto.titulo}}</a>
+                        </h3>
+                        <ul class="list-unstyled font-size-xs mt-n2 mb-2">
+                            <li class="mb-0"><span class="text-muted">Color:</span> Verde</li>
+                            <li class="mb-0"><span class="text-muted">Talla:</span> S</li>
+                        </ul>
+                        <div class="d-flex align-items-center">
+                            <input type="number" class="form-control form-control-sm bg-light mr-3" readonly
+                                style="width: 4.5rem;" value="{{carrito.cantidad}}">
+                            <div class="text-nowrap">
+                                <!-- <strong class="text-danger"></strong>-->
+                                <span style="font-size:1.1rem !important;"
+                                    class="font-size-xs text-muted">${{carrito.precio}}</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-link btn-sm text-decoration-none px-0 pb-0">
+                            Mover a
+                            <i class="cxi-heart ml-1"></i>
+                        </button>
+                    </div>
+                    <div class="nav-muted mr-n2">
+                        <a class="nav-link px-2 mt-n2" title="Quitar" style="cursor:pointer;"
+                            (click)="eliminarCarrito(carrito.id)">
+                            <i class="cxi-delete"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div *ngIf="carritos.length >0">
+            <div class="cs-offcanvas-cap flex-column border-top">
+                <div class="d-flex align-items-center justify-content-between mb-3 pb-1">
+                    <span class="text-muted mr-2">Subtotal:</span>
+                    <span class="h5 mb-0">${{subTotal}}</span>
+                </div>
+                <a [routerLink]="['/carrito']" class="btn btn-success btn-lg btn-block">
+                    <i class="cxi-credit-card font-size-lg mt-n1 mr-1"></i>
+                    Checkout
+                </a>
+            </div>
+        </div>
     </div>
-  </div>

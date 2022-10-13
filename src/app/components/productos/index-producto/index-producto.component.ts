@@ -5,6 +5,7 @@ import { Carrito } from 'src/app/models/carrito';
 import { Categoria } from 'src/app/models/categoria';
 import { Cliente } from 'src/app/models/cliente';
 import { Product } from 'src/app/models/producto';
+import { AuthService } from 'src/app/sercices/auth.service';
 import { CategoriaService } from 'src/app/sercices/categoria.service';
 import { ClienteService } from 'src/app/sercices/cliente.service';
 import { ProductoService } from 'src/app/sercices/producto.service';
@@ -31,24 +32,17 @@ export class IndexProductoComponent implements OnInit {
   constructor(private productoService: ProductoService,
     private categoriaService:CategoriaService, 
     private clienteService: ClienteService,
-    private activateRoute: ActivatedRoute) { }
+    private activateRoute: ActivatedRoute,
+    private authService:AuthService) { }
 
   ngOnInit(): void {
-    //Crear clienre para pruebas
-        //Crear clienre para pruebas
-        this.cliente.id = 5;
-        this.cliente.nombres = 'Juan';
-        this.cliente.apellidos = 'Perez';
-        this.cliente.email = 'juan perez';
-        this.cliente.pais = 'Peru';
-        this.cliente.password = '123456';
-        this.cliente.perfil = 'cliente';
-        this.cliente.telefono = '123456';
-        this.cliente.fechaNac = new Date();
-        this.cliente.genero = 'Masculino';
-        this.cliente.dni = 123456;
-
-
+    this.clienteService.getCliente(this.authService.usuario.id).subscribe(  
+      response => {
+        this.cliente = response;
+        this.carrito.cliente = this.cliente;
+      }
+    );
+   
         
     this.activateRoute.paramMap.subscribe((params) => {
       let page: number =+params.get('page');

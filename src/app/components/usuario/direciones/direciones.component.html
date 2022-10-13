@@ -1,0 +1,176 @@
+<app-nav></app-nav>
+
+<main class="cs-page-wrapper ">
+    <!-- Breadcrumb -->
+    <nav class="bg-secondary mb-3" aria-label="breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb breadcrumb-alt mb-0">
+                <li class="breadcrumb-item">
+                    <a [routerLink]="['/']"><i class="cxi-home"></i></a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Mis Direciones</li>
+            </ol>
+        </div>
+    </nav>
+
+
+    <!-- Page container -->
+    <section class="container pt-3 pt-lg-4 pb-5 pb-lg-6">
+        <div class="row pb-2 pb-lg-0">
+            <!-- Account menu (sticky sidebar) -->
+            <aside class="col-xl-3 col-lg-4 pb-3 mb-4 mb-lg-0">
+                <app-sidebar></app-sidebar>
+            </aside>
+            <!-- Content -->
+            <div class="col-lg-8 ml-auto">
+                <div class="d-flex align-items-center justify-content-between mb-4 pb-1 pb-sm-3">
+                    <h1 class="h2 mb-0">Nueva Dirección</h1>
+                </div>
+                <form class="mb-5" #clienteForm="ngForm">
+                    <div class="row mb-3">
+                        <div class="col-sm-6 form-group">
+                            <label for="destinatario">Destinatario</label>
+                            <input type="text" class="form-control form-control-lg" name="destinatario"
+                                [(ngModel)]="direcion.destinatario" placeholder="Nombres Completos del Destinatario"
+                                required>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="dni">DNI</label>
+                            <input type="text" class="form-control form-control-lg" name="dni"
+                                [(ngModel)]="direcion.dni" placeholder="DNI" required>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="zip">ZIP</label>
+                            <input type="text" class="form-control form-control-lg" name="zip"
+                                [(ngModel)]="direcion.zip" placeholder="Código Postal" required>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="telefono">Teléfono</label>
+                            <input type="text" class="form-control form-control-lg" name="telefono"
+                                [(ngModel)]="direcion.telefono" placeholder="Telefono" required>
+                        </div>
+                        <div class="col-sm-12 form-group">
+                            <label for="Dirección">Dirección</label>
+                            <textarea class="form-control" name="direccion" [(ngModel)]="direcion.direccion"
+                                placeholder="Dirección" rows="3" required>
+                        </textarea>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="pais">País</label>
+                            <select id="ac-country" name="pais" class="custom-select custom-select-lg"
+                                [(ngModel)]="direcion.pais" (change)="selectPais()">
+                                <option value="" disabled selected>Selecionar</option>
+                                <option value="Argentina">Argentina</option>
+                                <option value="Bolivia">Bolivia</option>
+                                <option value="Perú">Perú</option>
+                                <option value="Brasil">Brasil</option>
+                                <option value="Chile">Chile</option>
+                                <option value="Colombia">Colombia</option>
+                                <option value="Costa Rica">Costa Rica</option>
+                                <option value="Cuba">Cuba</option>
+                                <option value="Ecuador">Ecuador</option>
+                                <option value="El Salvador">El Salvador</option>
+                                <option value="España">España</option>
+                                <option value="Estados Unidos">Estados Unidos</option>
+                                <option value="Guatemala">Guatemala</option>
+                                <option value="Haití">Haití</option>
+                                <option value="Honduras">Honduras</option>
+                                <option value="México">México</option>
+                                <option value="Nicaragua">Nicaragua</option>
+                                <option value="Panamá">Panamá</option>
+                                <option value="Paraguay">Paraguay</option>
+                                <option value="República Dominican">República Dominican</option>
+                                <option value="Uruguay">Uruguay</option>
+                                <option value="Venezuela">Venezuela</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="ac-fn">Región</label>
+                            <select id="sl_region" name="region" class="custom-select custom-select-lg"
+                                [(ngModel)]="direcion.region" disabled (change)="selectRegion()">
+                                <option value="" disabled selected>Selecionar</option>
+                                <option *ngFor="let region of regiones" value="{{region.id}}">{{region.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="ac-fn">Provincia</label>
+                            <select id="sl_provincia" name="provincia" class="custom-select custom-select-lg"
+                                [(ngModel)]="direcion.provincia" (change)="select_provincia()" disabled>
+                                <option value="" disabled selected>Selecionar</option>
+                                <option *ngFor="let provincia of provincias" value="{{provincia.id}}">{{provincia.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="ac-fn">Distrito</label>
+                            <select id="sl_distrito" name="distrito" class="custom-select custom-select-lg"
+                                [(ngModel)]="direcion.distrito" disabled>
+                                <option value="" disabled selected>Selecionar</option>
+                                <option *ngFor="let distrito of distritos" value="{{distrito.id}}">{{distrito.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <!--SElect-->
+                        <div class="col-sm-12 form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="ex-check-1" name="principal"
+                                    [(ngModel)]="direcion.principal">
+                                <label class="form-check-label" for="ex-check-1">Activar Cuenta Principal</label>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <button type="submit" [disabled]="!clienteForm.form.valid" (click)="createDirecion()"
+                        class="btn btn-danger btn-lg">&nbsp;Crear Dirección&nbsp;</button>
+                </form>
+                <!--LIsta de direcciones del cliente-->
+                <div class="d-flex align-items-center justify-content-between mb-4 pb-1 pb-sm-3">
+                    <h1 class="h2 mb-0">Mis Direcciones</h1>
+                </div>
+                <div class="row" *ngIf="!load_data">
+                    <div class="col-12" *ngIf="direciones.length >=1">
+                        <ng-container *ngFor="let direccion of direciones">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-4 mb-sm-0 mb-3">
+                                            <h3 class="mb-2 fs-lg">{{direccion.destinatario}}</h3>
+                                            <span class="d-block mb-3 fs-sm text-muted">{{direccion.zip}}</span>
+                                            <span class="badge bg-success" *ngIf="direccion.principal">Dirección de
+                                                envío</span>
+                                        </div>
+                                        <div class="col">
+                                            <p class="mb-3">{{direccion.direccion}}</p>
+                                            <p class="mb-3">{{direccion.pais}} -
+                                                <span *ngIf="direccion.region">{{direccion.region}}</span> -
+                                                <span *ngIf="direccion.provincia">{{direccion.provincia}}</span> -
+                                                <span *ngIf="direccion.distrito">{{direccion.distrito}}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="col-12" *ngIf="direciones.length  ==0">
+                        <h3 class="h6 mb-2 text-uppercase">No se encontraron direcciones</h3>
+                        <h6 class="h1" style="font-size:2rem !important;">Debe registrar su dirección de envío por
+                            favor.</h6>
+                    </div>
+                </div>
+                <div class="row" *ngIf="load_data">
+                    <div class="col-12 text-center">
+                        <!-- Custom size border spinner -->
+                        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<app-footer></app-footer>

@@ -1,0 +1,20 @@
+.cs-header{
+    margin-left: 50px;
+   margin-right: 50px;
+}
+.btn{
+    padding: 8px 20px;
+    outline: none;
+    text-decoration: none;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+    font-weight: 600;
+    border-radius: 6px;
+}
+.btn-primary{
+    background-color: #FF535B !important;
+    border: 1px solid #FF535B !important;
+    color: #fff !important;
+    box-shadow: 0 3px 5px 0 rgb(255 83 91 / 30%);
+}

@@ -15,6 +15,10 @@ import { PaginationComponent } from './components/productos/pagination/paginatio
 import { ShowProductosComponent } from './components/productos/show-productos/show-productos.component';
 import { CarritoComponent } from './components/carrito/carrito.component';
 import { LoginComponent } from './components/login/login.component';
+import { PerfilComponent } from './components/usuario/perfil/perfil.component';
+import { SidebarComponent } from './components/usuario/sidebar/sidebar.component';
+import { DirecionesComponent } from './components/usuario/direciones/direciones.component';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +30,10 @@ import { LoginComponent } from './components/login/login.component';
     PaginationComponent,
     ShowProductosComponent,
     CarritoComponent,
-    LoginComponent
+    LoginComponent,
+    PerfilComponent,
+    SidebarComponent,
+    DirecionesComponent,
   ],
   imports: [
     BrowserModule,

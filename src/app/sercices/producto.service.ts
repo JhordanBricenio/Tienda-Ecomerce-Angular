@@ -48,4 +48,18 @@ export class ProductoService {
       })
     );
   }
+
+  //Get Regiones
+  getRegiones(): Observable<any> {
+    return this.http.get('./assets/regiones.json');
+  }
+  getDistritos(): Observable<any> {
+    return this.http.get('./assets/distritos.json');
+  }
+  getProvincias(): Observable<any> {
+    return this.http.get('./assets/provincias.json');
+  }
+
+  
+  
 }

@@ -1,5 +1,5 @@
 <app-nav></app-nav>
-<main class="container cs-page-wrapper">
+<main class="cs-page-wrapper">
   <!-- Breadcrumb -->
   <nav class="bg-secondary mb-3" aria-label="breadcrumb">
     <div class="container">
@@ -96,8 +96,8 @@
 
           <!-- Price -->
           <div class="d-flex align-items-center mb-sm-0 mb-4">
-            <span *ngIf="producto"   class="h3 d-inline-block mb-0 text-danger">${{producto.precio}}</span>
-            <del class="d-inline-block ml-2 pl-1 font-size-lg text-muted">$31.00</del>
+            <span *ngIf="producto"   class="h3 d-inline-block mb-0 text-danger">S/.{{producto.precio}}</span>
+            <del class="d-inline-block ml-2 pl-1 font-size-lg text-muted">S/.31.00</del>
             <span class="ml-4 p-2 badge badge-danger font-size-base font-weight-bold">- 50%</span>
           </div>
 
@@ -110,7 +110,7 @@
               <i class="sr-star cxi-star-filled active"></i>
               <i class="sr-star cxi-star"></i>
             </div>
-            <span class="font-size-sm text-muted">12 reviews</span>
+            <span class="font-size-sm text-muted">12 reseñas</span>
           </div>
         </div>
 
@@ -306,29 +306,9 @@
   <div class="py-5" style="background-color: #e5e8ed;">
     <section class="container my-lg-2 py-2 py-md-4">
       <div class="row">
-        <div class="col-lg-7 col-md-8 mb-md-0 mb-4">
-          <h3 class="h5 mb-3">Detalles</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl nec aliquam
-            tincidunt, nunc nibh luctus elit, eget aliquam nunc nisl sit amet mauris. Sed euismod, nisl
-            nec aliquam tincidunt, nunc nibh luctus elit, eget aliquam nunc nisl sit amet mauris.
-          </p>
-          <ul class="pl-3">
-            <li>Brand: Jordan</li>
-            <li>Color: gray / red / yellow</li>
-            <li>Mid-cut design</li>
-            <li>Lace-up fastening</li>
-            <li>Rubber outsole pods for durability and traction</li>
-            <li>Moulded grooves in forefoot offer added flexibility</li>
-            <li>Padded cuff with inner nodes designed to offer comfort and support around the Achilles tendon</li>
-          </ul>
-          <hr class="my-4">
-          <h3 class="h5 mb-3">Fabricación</h3>
-          <ul class="pl-3">
-            <li>Upper: 50% real leather, 50% textile</li>
-            <li>Lining: 100% textile</li>
-            <li>Sole: 100% other materials</li>
-          </ul>
+        <div class="col-lg-7 col-md-8 mb-md-0 mb-4" [innerHTML]="producto.descripcion">
+          
+          
         </div>
       </div>
     </section>

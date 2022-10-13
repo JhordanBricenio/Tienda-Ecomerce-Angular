@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Carrito } from 'src/app/models/carrito';
 import { Categoria } from 'src/app/models/categoria';
+import { AuthService } from 'src/app/sercices/auth.service';
 import { ClienteService } from 'src/app/sercices/cliente.service';
 import { ProductoService } from 'src/app/sercices/producto.service';
 
@@ -21,7 +23,9 @@ export class NavComponent implements OnInit {
   public subTotal = 0;
 
   constructor(private productoService: ProductoService,
-    private clienteService: ClienteService) { }
+    private clienteService: ClienteService,
+    public authServcice:AuthService,
+    private router:Router) { }
 
   ngOnInit(): void {
 
@@ -32,8 +36,20 @@ export class NavComponent implements OnInit {
     );
 
     //Obtener carrito por id de cliente
-    this.getCarrito(5);
 
+    this.getCarrito(this.authServcice.usuario.id);
+
+  }
+  logout():void{
+    let username = this.authServcice.usuario.nombres;
+    this.authServcice.logout();
+    iziToast.show({ 
+      title: 'Adios',
+      message: 'Hasta pronto '+username,
+      color: 'red',
+      position: 'topRight'
+    });
+    this.router.navigate(['/login']);
   }
 
   opModalCart() {
@@ -80,5 +96,6 @@ export class NavComponent implements OnInit {
       }
     );
   }
+
 
 }

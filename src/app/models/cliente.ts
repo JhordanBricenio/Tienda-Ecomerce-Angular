@@ -10,4 +10,7 @@ export class Cliente {
     fechaNac: Date;
     genero: string;
     dni: number;
+    enabled: boolean;
+    username: string;
+    roles: string[]= [];
 }

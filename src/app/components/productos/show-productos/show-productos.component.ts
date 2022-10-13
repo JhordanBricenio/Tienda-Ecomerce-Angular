@@ -6,6 +6,7 @@ import { Product } from 'src/app/models/producto';
 import { CategoriaService } from 'src/app/sercices/categoria.service';
 import { ClienteService } from 'src/app/sercices/cliente.service';
 import { ProductoService } from 'src/app/sercices/producto.service';
+import { AuthService } from 'src/app/sercices/auth.service';
 
 declare var tns;
 declare var lightGallery: any;
@@ -30,7 +31,8 @@ export class ShowProductosComponent implements OnInit {
     private productoService: ProductoService,
     private activateRoute: ActivatedRoute,
     private categoriaService: CategoriaService,
-    private clienteService: ClienteService
+    private clienteService: ClienteService,
+    private authService: AuthService
   ) {
     this.activateRoute.params.subscribe((params) => {
       this.slug = params['slug'];
@@ -49,18 +51,12 @@ export class ShowProductosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //Crear clienre para pruebas
-    this.cliente.id = 5;
-    this.cliente.nombres = 'Juan';
-    this.cliente.apellidos = 'Perez';
-    this.cliente.email = 'juan perez';
-    this.cliente.pais = 'Peru';
-    this.cliente.password = '123456';
-    this.cliente.perfil = 'cliente';
-    this.cliente.telefono = '123456';
-    this.cliente.fechaNac = new Date();
-    this.cliente.genero = 'Masculino';
-    this.cliente.dni = 123456;
+    this.clienteService.getCliente(this.authService.usuario.id).subscribe(  
+      response => {
+        this.cliente = response;
+        this.carrito.cliente = this.cliente;
+      }
+    );
 
 
     setTimeout(() => {
@@ -130,12 +126,6 @@ export class ShowProductosComponent implements OnInit {
 
 
     }, 500);
-
-
-
-
-
-
 
   }
 
