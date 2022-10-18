@@ -43,59 +43,39 @@
                         <a href="#" class="font-size-sm text-decoration-none">Olvido su contraseña?</a>
                       </div>
                       <button type="submit" (click)="login()" class="btn btn-success btn-block">Iniciar sesión</button>
-                      <p class="font-size-sm pt-4 mb-0">
-                        No tienes una cuenta?
-                        <a href="#" class="font-weight-bold text-decoration-none">Registrate</a>
-                      </p>
                     </form>
                   </div>
             </div>
             <div class="col-lg-6">
                 <div class="px-md-5">
-                    <h3 class="modal-title mt-4 mb-0 text-center">Registro rápido</h3>
-                    <p class="font-size-sm text-muted text-center">Sign in to your account using email and password provided during registration.</p>
-                    <form >
+                    <h3 class="modal-title mt-4 mb-5 text-center">Registro rápido</h3>                    
+                    <form #clienteForm="ngForm" >
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <label for="signin-email">Nombres completos</label>
-                                    <input type="email" class="form-control" name="" placeholder="Names" required="">
+                                    <input type="email" class="form-control" [(ngModel)]="cliente.nombres" name="nombres" placeholder="Nombres completos" required>
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="signin-email">Apellidos completos</label>
-                                    <input type="email" class="form-control"  placeholder="Fullname" required="">
+                                    <input type="email" name="apellidos" class="form-control" [(ngModel)]="cliente.apellidos"  placeholder="Apellidos completos" required>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="signin-email">Email</label>
-                            <input type="email" class="form-control" placeholder="Your email address" required="">
+                            <label for="signin-email">Correo electrónico</label>
+                            <input type="email" name="email" [(ngModel)]="cliente.email" class="form-control" placeholder="TU correo electrónico" required>
                         </div>
                         <div class="form-group">
-                            <label for="signin-password" class="form-label">Password</label>
+                            <label for="signin-password" class="form-label">Contraseña</label>
                             <div class="cs-password-toggle input-group-overlay">
-                            <input type="password" class="form-control appended-form-control" id="signin-password" placeholder="Your password" required="">
-                            <div class="input-group-append-overlay">
-                                <label class="btn cs-password-toggle-btn input-group-text">
-                                <input type="checkbox" class="custom-control-input">
-                                <i class="cxi-eye cs-password-toggle-indicator"></i>
-                                <span class="sr-only">Show password</span>
-                                </label>
-                            </div>
+                            <input type="password" [(ngModel)]="cliente.password" name="password" class="form-control appended-form-control" id="signin-password" placeholder="Tu contraseña" required>              
                             </div>
                         </div>
-                        <div class="d-flex justify-content-between align-items-center form-group">
-                            <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="remember-me" checked="">
-                            <label for="remember-me" class="custom-control-label">Remember me</label>
-                            </div>
-                            <a href="#" class="font-size-sm text-decoration-none">Forgot password?</a>
+                        <div class="d-flex justify-content-between align-items-center form-group">                    
                         </div>
-                        <button type="submit" class="btn btn-danger btn-block">Inicia sesión</button>
-                        <p class="font-size-sm pt-4 mb-0">
-                            Ya tienes una cuenta?
-                            <a href="#" class="font-weight-bold text-decoration-none">Registrarme</a>
-                        </p>
+                        <button type="button" (click)="create()" [disabled]="!clienteForm.form.valid"  
+                        class="btn btn-danger btn-block">Registrate</button>
                     </form>
                   </div>
             </div>

@@ -17,6 +17,15 @@ export class ProductoService {
   constructor(private http: HttpClient, private Router: Router) {
     this.url = GLOBAL.url;
   }
+  //Get Productos
+  getProductos(): Observable<any> {
+    return this.http.get(this.url + '/products').pipe(
+      catchError(e => {
+        console.log(e.error.mensaje);
+        return throwError(() => e);
+      })
+    );
+  }
 
   getProducts(page: number): Observable<any> {
     return this.http.get(this.url +'/products' + '/page/' + page).pipe(

@@ -30,10 +30,10 @@
           <div class="cs-carousel-inner" data-carousel-options=''>
 
             <!-- Product gallery item -->
-            <a class="cs-gallery-item" href="http://localhost:9090/api/upload/img/{{producto.imagen}}"
+            <a class="cs-gallery-item" *ngIf="producto?.imagen" href="http://localhost:9090/api/upload/img/{{producto.imagen}}"
               data-sub-html='<h6 class="text-light">Gallery image caption #1</h6>'>
               <img  *ngIf="producto?.imagen" src="http://localhost:9090/api/upload/img/{{producto.imagen}}"
-                    alt="{{producto.imagen}}"  class="rounded">
+                    alt="{{producto?.imagen}}"  class="rounded">
               <span class="cs-gallery-caption">Gallery image caption #1</span>
             </a>
             
@@ -306,7 +306,7 @@
   <div class="py-5" style="background-color: #e5e8ed;">
     <section class="container my-lg-2 py-2 py-md-4">
       <div class="row">
-        <div class="col-lg-7 col-md-8 mb-md-0 mb-4" [innerHTML]="producto.descripcion">
+        <div class="col-lg-7 col-md-8 mb-md-0 mb-4" *ngIf="producto?.descripcion" [innerHTML]="producto.descripcion">
           
           
         </div>

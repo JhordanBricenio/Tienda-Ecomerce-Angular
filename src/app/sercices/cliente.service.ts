@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Carrito } from '../models/carrito';
 import { GLOBAL } from './GLOBAL';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { Cliente } from '../models/cliente';
 import { AuthService } from './auth.service';
 import { Direcion } from '../models/direcion';
@@ -37,6 +37,31 @@ export class ClienteService {
       return true;
     }
     return false;
+  }
+
+  //Registar cliente
+  create(cliente: Cliente) {
+    return this.http
+      .post(this.url + '/clientes', cliente, { headers: this.agregarAuthorizationHeader() })
+      .pipe(
+        map((response: any) => response.cliente as Cliente),
+        catchError((e) => {
+          if (e.status == 400) {
+            return throwError(() => e);
+          }
+          console.log(e.error.mensaje);
+          iziToast.show({
+            title: 'Error',
+            titleColor: '#FF0000',
+            class: 'text-danger',
+            position: 'topRight',
+            message: `${e.error.mensaje}`
+          });
+          // swal.fire(e.error.mensaje, e.error.error, 'error');
+          return throwError(() => e);
+        })
+      );
+
   }
 
 

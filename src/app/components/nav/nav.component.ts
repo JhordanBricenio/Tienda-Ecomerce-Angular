@@ -66,7 +66,7 @@ export class NavComponent implements OnInit {
   getCarrito(id: number) {
     this.clienteService.getCarrito(id).subscribe(
       response => {
-        console.log(response);
+        
         this.carritos = response;
         this.getTotalCarrito();
       }
@@ -91,7 +91,7 @@ export class NavComponent implements OnInit {
           position: 'topRight',
           message:'Se eliminó el producto del carrito'
         });
-        console.log(response);
+       
        // this.getCarrito(5);
       }
     );

@@ -1,3 +1,5 @@
+import { Venta } from "./venta";
+
 export class Cliente {
     id: number;
     nombres: string;
@@ -13,4 +15,5 @@ export class Cliente {
     enabled: boolean;
     username: string;
     roles: string[]= [];
+    venta: Venta[] = [];
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cliente } from 'src/app/models/cliente';
 import { AuthService } from 'src/app/sercices/auth.service';
+import { ClienteService } from 'src/app/sercices/cliente.service';
 
 declare var iziToast: any;
 
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   cliente: Cliente;
 
-  constructor(private authService: AuthService, private router: Router) { 
+  constructor(private authService: AuthService, private router: Router
+    , private clienteService: ClienteService) { 
     this.cliente = new Cliente();
   }
 
@@ -57,5 +59,26 @@ export class LoginComponent implements OnInit {
           });
       }
     });
+  }
+
+  //crear cliente
+  create():void{
+    if(this.cliente.email == null || this.cliente.password == null){
+      iziToast.error({
+        title: 'Error',
+        message: 'Los campos email y password son obligatorios',
+      });
+      return;
+    }    
+    this.clienteService.create(this.cliente).subscribe(
+      cliente => {
+        this.router.navigate(['/login']);
+        iziToast.success({
+          title: 'OK',
+          message: `Hola ${cliente.nombres}, te has registrado con éxito`,
+        });
+        this.cliente = new Cliente();
+      }
+    );
   }
 }
