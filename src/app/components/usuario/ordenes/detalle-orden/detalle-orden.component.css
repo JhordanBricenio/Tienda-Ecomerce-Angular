@@ -1,0 +1,9 @@
+.cs-page-wrapper{
+    margin-left: 50px;
+   margin-right: 50px;
+}
+/*Rayting*/
+::ng-deep label.star{
+    padding: 0 5px !important;
+    font-size: 20px !important;
+}

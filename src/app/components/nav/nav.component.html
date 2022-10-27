@@ -20,20 +20,15 @@
                             data-bs-toggle="dropdown" aria-expanded="false">
                             {{authServcice.usuario?.nombres}}
                         </button>
-                        <div class="dropdown-menu dropdown-menu-dark">
-                            <a [routerLink]="['/cuenta/perfil']" routerLinkActive="active" class="dropdown-item">
+                        <div class="dropdown-menu dropdown-menu-dark " style="color:black ;">
+                            <a [routerLink]="['/cuenta/perfil']" routerLinkActive="active"  class="dropdown-item">
                                 <i class="ci-profile me-2"></i>
                                 Perfil
-                                <!-- <span class="badge rounded-pill bg-danger ms-2">3</span>-->
                             </a>
                             <button (click)="logout()" class="dropdown-item" type="submit">Cerrar Sessión</button>
 
                         </div>
                     </div>
-
-
-
-
                     <li class="divider-vertical mb-0 d-lg-block d-none"></li>
                     <li class="nav-item align-self-center mb-0">
                         <a style="cursor: pointer;" class="nav-tool pr-lg-0" (click)="opModalCart()">
@@ -65,13 +60,13 @@
                     </div>
                 </div>
                 <!-- Menu -->
-                <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav mr-auto" style="font-family:Nunito ,sans-serif; ">
                     <li class="nav-item">
                         <a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
                             class="nav-link">Inicio</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a [routerLink]="['/productos']" routerLink="active" class="nav-link dropdown-toggle"
+                        <a [routerLink]="['/productos']" routerLinkActive="active" class="nav-link dropdown-toggle"
                             data-toggle="dropdown">Tienda</a>
                         <ul class="dropdown-menu">
                             <li *ngFor="let categoria of categorias">
@@ -80,82 +75,9 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown mega-dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Megamenu</a>
-                        <div class="dropdown-menu">
-                            <div class="container pt-lg-1 pb-lg-3">
-                                <div class="row">
-                                    <div class="col-lg-2 col-md-3 py-2">
-                                        <ul class="list-unstyled">
-                                            <li><a href="#" class="dropdown-item">New collection</a></li>
-                                            <li><a href="#" class="dropdown-item">Best sellers</a></li>
-                                            <li><a href="#" class="dropdown-item">Plus size</a></li>
-                                            <li><a href="#" class="dropdown-item text-danger">Sale up to 70%</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-lg-2 col-md-3 py-2">
-                                        <h4 class="font-size-sm text-uppercase pt-1 mb-2">Clothes</h4>
-                                        <ul class="list-unstyled">
-                                            <li><a href="#" class="dropdown-item">Coats</a></li>
-                                            <li><a href="#" class="dropdown-item">Jackets</a></li>
-                                            <li><a href="#" class="dropdown-item">Suits</a></li>
-                                            <li><a href="#" class="dropdown-item">Dresses</a></li>
-                                            <li><a href="#" class="dropdown-item">Cardigans &amp; sweaters</a></li>
-                                            <li><a href="#" class="dropdown-item">Sweatshirts &amp; hoodies</a></li>
-                                            <li><a href="#" class="dropdown-item">T-shirts &amp; tops</a></li>
-                                            <li><a href="#" class="dropdown-item">Pants</a></li>
-                                            <li><a href="#" class="dropdown-item">Jeans</a></li>
-                                            <li><a href="#" class="dropdown-item">Shorts</a></li>
-                                            <li><a href="#" class="dropdown-item">Skirts</a></li>
-                                            <li><a href="#" class="dropdown-item">Lingerie &amp; nightwear</a></li>
-                                            <li><a href="#" class="dropdown-item">Sportswear</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-lg-2 col-md-3 py-2">
-                                        <h4 class="font-size-sm text-uppercase pt-1 mb-2">Shoes</h4>
-                                        <ul class="list-unstyled">
-                                            <li><a href="#" class="dropdown-item">Boots</a></li>
-                                            <li><a href="#" class="dropdown-item">Flat shoes</a></li>
-                                            <li><a href="#" class="dropdown-item">Heels</a></li>
-                                            <li><a href="#" class="dropdown-item">Sandals</a></li>
-                                            <li><a href="#" class="dropdown-item">Mules</a></li>
-                                            <li><a href="#" class="dropdown-item">Sliders</a></li>
-                                            <li><a href="#" class="dropdown-item">Slippers</a></li>
-                                            <li><a href="#" class="dropdown-item">Sneakers</a></li>
-                                            <li><a href="#" class="dropdown-item">Leather</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-lg-2 col-md-3 py-2">
-                                        <h4 class="font-size-sm text-uppercase pt-1 mb-2">Accessories</h4>
-                                        <ul class="list-unstyled">
-                                            <li><a href="#" class="dropdown-item">Bags &amp; backpacks</a></li>
-                                            <li><a href="#" class="dropdown-item">Hats &amp; scarves</a></li>
-                                            <li><a href="#" class="dropdown-item">Hair accessories</a></li>
-                                            <li><a href="#" class="dropdown-item">Belts</a></li>
-                                            <li><a href="#" class="dropdown-item">Jewellery</a></li>
-                                            <li><a href="#" class="dropdown-item">Watches</a></li>
-                                            <li><a href="#" class="dropdown-item">Sunglasses</a></li>
-                                            <li><a href="#" class="dropdown-item">Purses</a></li>
-                                            <li><a href="#" class="dropdown-item">Socks &amp; tights</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-lg-1 d-none d-lg-block py-2">
-                                        <span class="divider-vertical h-100 mx-auto"></span>
-                                    </div>
-                                    <div class="col-lg-3 d-none d-lg-block py-2">
-                                        <a href="#" class="d-block text-decoration-none pt-1">
-                                            <img src="assets/img/ecommerce/megamenu.jpg" class="d-block rounded mb-3"
-                                                alt="Promo banner">
-                                            <h5 class="font-size-sm mb-3">Back to school. Sale up to 50%</h5>
-                                            <div class="btn btn-outline-primary btn-sm">
-                                                See offers
-                                                <i class="cxi-arrow-right ml-1"></i>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <li class="nav-item">
+                        <a [routerLink]="['/contacto']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+                            class="nav-link">Contacto</a>
                     </li>
 
                 </ul>
@@ -200,22 +122,23 @@
                                 class="nav-link font-weight-bold">{{carrito.producto.titulo}}</a>
                         </h3>
                         <ul class="list-unstyled font-size-xs mt-n2 mb-2">
-                            <li class="mb-0"><span class="text-muted">Color:</span> Verde</li>
-                            <li class="mb-0"><span class="text-muted">Talla:</span> S</li>
+                            <li class="mb-0"><span class="text-muted">Talla:</span>{{carrito.talla}}</li>
                         </ul>
                         <div class="d-flex align-items-center">
                             <input type="number" class="form-control form-control-sm bg-light mr-3" readonly
                                 style="width: 4.5rem;" value="{{carrito.cantidad}}">
-                            <div class="text-nowrap">
+                            <div class="text-nowrap" *ngFor="let item of promociones">
                                 <!-- <strong class="text-danger"></strong>-->
                                 <span style="font-size:1.1rem !important;"
-                                    class="font-size-xs text-muted">${{carrito.precio}}</span>
+                                    class="font-size-xs text-muted">S/.{{carrito.precio|promocion:item.descuento}}.00</span>
+                            </div>
+                            <div class="text-nowrap" *ngIf="promociones.length==0">
+                                <!-- <strong class="text-danger"></strong>-->
+                                <span style="font-size:1.1rem !important;"
+                                    class="font-size-xs text-muted">S/.{{carrito.precio}}.00</span>
                             </div>
                         </div>
-                        <button class="btn btn-link btn-sm text-decoration-none px-0 pb-0">
-                            Mover a
-                            <i class="cxi-heart ml-1"></i>
-                        </button>
+                       
                     </div>
                     <div class="nav-muted mr-n2">
                         <a class="nav-link px-2 mt-n2" title="Quitar" style="cursor:pointer;"
@@ -232,7 +155,7 @@
             <div class="cs-offcanvas-cap flex-column border-top">
                 <div class="d-flex align-items-center justify-content-between mb-3 pb-1">
                     <span class="text-muted mr-2">Subtotal:</span>
-                    <span class="h5 mb-0">${{subTotal}}</span>
+                    <span class="h5 mb-0">S/. {{subTotal}}</span>
                 </div>
                 <a [routerLink]="['/carrito']" class="btn btn-success btn-lg btn-block">
                     <i class="cxi-credit-card font-size-lg mt-n1 mr-1"></i>

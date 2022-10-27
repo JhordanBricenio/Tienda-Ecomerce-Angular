@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Categoria } from 'src/app/models/categoria';
 import { Product } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/sercices/producto.service';
 
@@ -10,6 +11,8 @@ declare var tns;
   styleUrls: ['./inicio.component.css']
 })
 export class InicioComponent implements OnInit {
+
+  categorias: Categoria[] = [];
 
   constructor(private productService:ProductoService) { }
 
@@ -142,6 +145,12 @@ export class InicioComponent implements OnInit {
       });
 
     },500);
+
+    this.productService.getCategorias().subscribe(
+      response => {
+        this.categorias = response;
+      }
+    );
 
     this.productService.getProductos().subscribe(
       response => {

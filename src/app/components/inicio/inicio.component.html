@@ -7,7 +7,7 @@
           <div class="bg-size-cover py-xl-6" style="background-image: url(../../assets/img/ecommerce/home/hero-slider/R.jpg);">
             <div class="container pt-5 pb-6">
               <div class="row pb-lg-6">
-                <div class="col-lg-6 offset-lg-1 offset-xl-0 pb-4 pb-md-6">
+                <div class="col-lg-6 offset-lg-1 offset-xl-0 pb-4 pb-md-6" style="font-family:Nunito ,sans-serif; ">
                   <h3 class="font-size-lg text-uppercase cs-from-left cs-delay-1">Nuevo en</h3>
                   <h2 class="display-2 mb-lg-5 pb-3 cs-from-left">Ropa masculina 2022</h2>
                  
@@ -85,7 +85,7 @@
             <!-- Category -->
             <a  class="d-block cs-image-scale cs-heading-highlight text-center">
               <div class="cs-image-inner mb-3 rounded">
-                <img src="../../assets/img/ecommerce/home/hero-slider/hombre.jpg" alt="Women’s">
+                <img src="../../assets/img/ecommerce/home/hero-slider/dama.png" style="width:120% ;" alt="Women’s">
               </div>
               <h3 class="h5 mb-1">Mujeres</h3>
             </a>
@@ -99,7 +99,7 @@
             <!-- Category -->
             <a  class="d-block cs-image-scale cs-heading-highlight text-center">
               <div class="cs-image-inner mb-3 rounded">
-                <img src="../../assets/img/ecommerce/home/hero-slider/hombre.jpg" alt="Kids'">
+                <img src="../../assets/img/ecommerce/home/hero-slider/niña.jpg" style="width:78% ;" alt="Kids'">
               </div>
               <h3 class="h5 mb-1">Niños</h3>
             </a>
@@ -183,62 +183,12 @@
           }'>
 
             <!-- Category -->
-            <div class="pb-2">
-              <a href="shop-catalog.html" class="d-block cs-image-scale cs-heading-highlight text-center">
+            <div class="pb-2" *ngFor="let categoria of categorias">
+              <a [routerLink]="['/productos/categorias/',categoria.id]" class="d-block cs-image-scale cs-heading-highlight text-center">
                 <div class="cs-image-inner rounded-circle mx-auto mb-4" style="max-width: 180px;">
-                  <img src="../../assets/img/ecommerce/home/categories/04.jpg" alt="Category image">
+                  <img src="http://localhost:9090/api/upload/img/{{categoria.foto}}" alt="{{categoria.foto}}">
                 </div>
-                <h3 class="h5 mb-3">Tops</h3>
-              </a>
-            </div>
-
-            <!-- Category -->
-            <div class="pb-2">
-              <a href="shop-catalog.html" class="d-block cs-image-scale cs-heading-highlight text-center">
-                <div class="cs-image-inner rounded-circle mx-auto mb-4" style="max-width: 180px;">
-                  <img src="../../assets/img/ecommerce/home/categories/05.jpg" alt="Category image">
-                </div>
-                <h3 class="h5 mb-3">T-shirts</h3>
-              </a>
-            </div>
-
-            <!-- Category -->
-            <div class="pb-2">
-              <a href="shop-catalog.html" class="d-block cs-image-scale cs-heading-highlight text-center">
-                <div class="cs-image-inner rounded-circle mx-auto mb-4" style="max-width: 180px;">
-                  <img src="../../assets/img/ecommerce/home/categories/06.jpg" alt="Category image">
-                </div>
-                <h3 class="h5 mb-3">Caps</h3>
-              </a>
-            </div>
-
-            <!-- Category -->
-            <div class="pb-2">
-              <a href="shop-catalog.html" class="d-block cs-image-scale cs-heading-highlight text-center">
-                <div class="cs-image-inner rounded-circle mx-auto mb-4" style="max-width: 180px;">
-                  <img src="../../assets/img/ecommerce/home/categories/07.jpg" alt="Category image">
-                </div>
-                <h3 class="h5 mb-3">Sandals</h3>
-              </a>
-            </div>
-
-            <!-- Category -->
-            <div class="pb-2">
-              <a href="shop-catalog.html" class="d-block cs-image-scale cs-heading-highlight text-center">
-                <div class="cs-image-inner rounded-circle mx-auto mb-4" style="max-width: 180px;">
-                  <img src="../../assets/img/ecommerce/home/categories/08.jpg" alt="Category image">
-                </div>
-                <h3 class="h5 mb-3">Jackets</h3>
-              </a>
-            </div>
-
-            <!-- Category -->
-            <div class="pb-2">
-              <a href="shop-catalog.html" class="d-block cs-image-scale cs-heading-highlight text-center">
-                <div class="cs-image-inner rounded-circle mx-auto mb-4" style="max-width: 180px;">
-                  <img src="../../assets/img/ecommerce/home/categories/09.jpg" alt="Category image">
-                </div>
-                <h3 class="h5 mb-3">Coats</h3>
+                <h3 class="h5 mb-3">{{categoria.nombre}}</h3>
               </a>
             </div>
           </div>
@@ -248,27 +198,24 @@
     <!-- Services -->
     <section style="margin-top: 10rem !important;" class=" mb-2">
       <h2 class="h1 mb-5 pb-3 text-center">Beneficios</h2>
-        <div class="row py-3">
-          <div class="col-sm-6 col-md-3 text-center mb-md-0 mb-4 pb-md-0 pb-3">
-            <img class="mb-4" src="../../assets/img/ecommerce/home/services/delivery.svg" width="48" alt="Worldwide Shipping">
+        <div class="row py-3  ">
+          <div class="border-right col-sm-6 col-md-3 text-center mb-md-0 mb-4 pb-md-0 pb-3">
+            <img class="mb-4" src="../../assets/img/car.png" style="width: 90% ;" alt="Worldwide Shipping">
             <h5 class="h5 mb-2">Envío rápido</h5>
             <p class="mb-0 text-muted">Obtén envío gratis de más de s/.250</p>
           </div>
-          <span class="divider-vertical d-sm-block d-none"></span>
-          <div class="col-sm-6 col-md-3 text-center mb-md-0 mb-4 pb-md-0 pb-3">
-            <img class="mb-4" src="../../assets/img/ecommerce/home/services/support.svg" width="48" alt="Customer Support">
+          <div class="border-left border-right  col-sm-6 col-md-3 text-center mb-md-0 mb-4 pb-md-0 pb-3">
+            <img class="mb-4" src="../../assets/img/suport.png" style="width: 65% ;" alt="Customer Support">
             <h5 class="h5 mb-2">24/7 Apoyo al cliente</h5>
             <p class="mb-0 text-muted">Amistoso Servicio de Apoyo al cliente</p>
           </div>
-          <span class="divider-vertical d-sm-block d-none"></span>
-          <div class="col-sm-6 col-md-3 text-center mb-md-0 mb-4 pb-md-0 pb-3">
-            <img class="mb-4" src="../../assets/img/ecommerce/home/services/guarantee.svg" width="48" alt="Customer Support">
+          <div class="border-left border-right col-sm-3 col-md-3 text-center mb-md-0 mb-4 pb-md-0 pb-3">
+            <img class="mb-4" src="../../assets/img/money.png" style="width: 53%;" alt="Customer Support">
             <h5 class="h5 mb-2">Garantía de devolución de dinero</h5>
             <p class="mb-0 text-muted">Devolvemos el dinero en un plazo de 30 días</p>
           </div>
-          <span class="divider-vertical d-sm-block d-none"></span>
-          <div class="col-sm-6 col-md-3 text-center mb-md-0 mb-4 pb-md-0 pb-3">
-            <img class="mb-4" src="../../assets/img/ecommerce/home/services/payment.svg" width="48" alt="Customer Support">
+          <div class="border-left  col-sm- col-md-3 text-center mb-md-0 mb-4 pb-md-0 pb-3">
+            <img class="mb-4" src="../../assets/img/card.png" style="width: 70% ;" alt="Customer Support">
             <h5 class="h5 mb-2">Pago seguro en línea</h5>
             <p class="mb-0 text-muted">Acepta todas las principales tarjetas de crédito</p>
           </div>

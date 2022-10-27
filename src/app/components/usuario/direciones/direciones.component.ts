@@ -82,7 +82,6 @@ export class DirecionesComponent implements OnInit {
     });
 
     this.direcion.cliente = this.cliente;
-    //console.log(this.direcion);
     this.clienteService.agregarDireccionesEnvio(this.direcion).subscribe(
        response => {
          iziToast.show({
@@ -96,6 +95,23 @@ export class DirecionesComponent implements OnInit {
         this.direcion = new Direcion();
        }
      );
+  }
+  
+  establecerPrincipal(id){
+    this.clienteService.cambiarEstadoDireccionEnvio(id,this.authService.usuario.id).subscribe(
+      response => {
+        iziToast.show({
+          title: 'Éxito',
+          titleColor: '#1DC74C',
+          color: '#FFF',
+          class: 'text-success',
+          position: 'topRight',
+          message: 'Se establecio la direcion de envio principal correctamente',
+        });
+        this.getDireciones();
+      }
+    );
+
   }
 
   getDireciones() {

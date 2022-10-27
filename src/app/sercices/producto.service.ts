@@ -19,7 +19,7 @@ export class ProductoService {
   }
   //Get Productos
   getProductos(): Observable<any> {
-    return this.http.get(this.url + '/products').pipe(
+    return this.http.get(this.url + '/productsss').pipe(
       catchError(e => {
         console.log(e.error.mensaje);
         return throwError(() => e);

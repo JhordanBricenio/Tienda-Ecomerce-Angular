@@ -1,5 +1,7 @@
 import { Categoria } from "./categoria";
+import { Imagen } from "./imagen";
 import { Marca } from "./marca";
+import { Variedad } from "./variedad";
 
 export class Product {
     id:number;
@@ -16,4 +18,6 @@ export class Product {
     imagen:string;
     categoria:Categoria;
     marca:Marca;
+    variedades:Variedad[]= [];
+    imagenes:Imagen[];
 }

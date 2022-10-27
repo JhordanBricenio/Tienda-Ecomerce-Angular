@@ -18,6 +18,11 @@ import { LoginComponent } from './components/login/login.component';
 import { PerfilComponent } from './components/usuario/perfil/perfil.component';
 import { SidebarComponent } from './components/usuario/sidebar/sidebar.component';
 import { DirecionesComponent } from './components/usuario/direciones/direciones.component';
+import { ContactoComponent } from './components/contacto/contacto.component';
+import { IndexOrdenesComponent } from './components/usuario/ordenes/index-ordenes/index-ordenes.component';
+import { DetalleOrdenComponent } from './components/usuario/ordenes/detalle-orden/detalle-orden.component';
+import { PromocionPipe } from './pipes/promocion.pipe';
+import { NgxStarRatingModule } from 'ngx-star-rating';
 
 
 @NgModule({
@@ -34,12 +39,17 @@ import { DirecionesComponent } from './components/usuario/direciones/direciones.
     PerfilComponent,
     SidebarComponent,
     DirecionesComponent,
+    ContactoComponent,
+    IndexOrdenesComponent,
+    DetalleOrdenComponent,
+    PromocionPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule, 
+    HttpClientModule,
+    NgxStarRatingModule,
     routing
   ],
   providers: [],

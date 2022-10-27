@@ -7,4 +7,5 @@ export class Carrito {
     precio: number;
     producto: Product;
     cliente: Cliente;
+    talla: string;
 }

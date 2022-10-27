@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Carrito } from 'src/app/models/carrito';
 import { Categoria } from 'src/app/models/categoria';
+import { Promocion } from 'src/app/models/promocion';
 import { AuthService } from 'src/app/sercices/auth.service';
 import { ClienteService } from 'src/app/sercices/cliente.service';
 import { ProductoService } from 'src/app/sercices/producto.service';
@@ -19,13 +20,16 @@ export class NavComponent implements OnInit {
   public op_cart: boolean = false;
   categorias: Categoria[] = [];
   carritos: Carrito[] = [];
+  promociones:any=undefined;
+  descuento:number;
 
-  public subTotal = 0;
+  public subTotal;
+  public promo=0;
 
   constructor(private productoService: ProductoService,
     private clienteService: ClienteService,
-    public authServcice:AuthService,
-    private router:Router) { }
+    public authServcice: AuthService,
+    private router: Router) { }
 
   ngOnInit(): void {
 
@@ -35,17 +39,15 @@ export class NavComponent implements OnInit {
       }
     );
 
-    //Obtener carrito por id de cliente
-
     this.getCarrito(this.authServcice.usuario.id);
 
   }
-  logout():void{
+  logout(): void {
     let username = this.authServcice.usuario.nombres;
     this.authServcice.logout();
-    iziToast.show({ 
+    iziToast.show({
       title: 'Adios',
-      message: 'Hasta pronto '+username,
+      message: 'Hasta pronto ' + username,
       color: 'red',
       position: 'topRight'
     });
@@ -66,7 +68,7 @@ export class NavComponent implements OnInit {
   getCarrito(id: number) {
     this.clienteService.getCarrito(id).subscribe(
       response => {
-        
+
         this.carritos = response;
         this.getTotalCarrito();
       }
@@ -74,10 +76,38 @@ export class NavComponent implements OnInit {
   }
   //calcular total de carrito
   getTotalCarrito() {
-
-    this.carritos.forEach(element => {
-      this.subTotal = this.subTotal + (element.precio * element.cantidad);
+    this.clienteService.getPromocion().subscribe(response => {
+      if (response != null) {
+        this.promociones = response;
+        this.promociones.forEach(element => {
+          sessionStorage.setItem('descuento', JSON.stringify(element.descuento));
+        })
+       
+               
+      } else {
+        console.log("No hay promocion");
+      }
     });
+    
+    this.subTotal = 0;
+    this.descuento = JSON.parse(sessionStorage.getItem('descuento'));
+
+     
+    if (this.descuento==null) {
+      this.carritos.forEach(element => {
+        this.subTotal = this.subTotal + (element.producto.precio* element.cantidad);        
+        
+      });
+    } else if (this.descuento!=null) {
+      this.carritos.forEach(element => {
+
+        let new_precio = element.producto.precio - (element.producto.precio * this.descuento) / 100;
+        this.subTotal = this.subTotal + new_precio;
+        //console.log(this.subTotal);
+        
+      });
+    }
+
   }
 
   eliminarCarrito(id) {
@@ -89,10 +119,10 @@ export class NavComponent implements OnInit {
           color: '#FFF',
           class: 'text-success',
           position: 'topRight',
-          message:'Se eliminó el producto del carrito'
+          message: 'Se eliminó el producto del carrito'
         });
-       
-       // this.getCarrito(5);
+
+        // this.getCarrito(5);
       }
     );
   }

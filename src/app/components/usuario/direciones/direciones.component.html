@@ -2,7 +2,7 @@
 
 <main class="cs-page-wrapper ">
     <!-- Breadcrumb -->
-    <nav class="bg-secondary mb-3" aria-label="breadcrumb">
+    <nav  style="background-color:rgb(236, 237, 243);" class="mb-3"  aria-label="breadcrumb">
         <div class="container">
             <ol class="breadcrumb breadcrumb-alt mb-0">
                 <li class="breadcrumb-item">
@@ -137,8 +137,9 @@
                                         <div class="col-md-3 col-sm-4 mb-sm-0 mb-3">
                                             <h3 class="mb-2 fs-lg">{{direccion.destinatario}}</h3>
                                             <span class="d-block mb-3 fs-sm text-muted">{{direccion.zip}}</span>
-                                            <span class="badge bg-success" *ngIf="direccion.principal">Dirección de
+                                            <span class="badge bg-danger" style="color:white ;" *ngIf="direccion.principal">Dirección de
                                                 envío</span>
+                                            <span class="badge bg-warning" (click)="establecerPrincipal(direccion.id)" style="color:white ; cursor: pointer;" *ngIf="!direccion.principal">Establecer principal</span>
                                         </div>
                                         <div class="col">
                                             <p class="mb-3">{{direccion.direccion}}</p>

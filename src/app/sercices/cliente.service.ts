@@ -7,6 +7,7 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { Cliente } from '../models/cliente';
 import { AuthService } from './auth.service';
 import { Direcion } from '../models/direcion';
+import { Contacto } from '../models/contacto';
 
 
 declare var iziToast: any;
@@ -135,8 +136,8 @@ export class ClienteService {
           return throwError(() => e);
         }
 
-        console.error(e.error.mensaje);
-        console.error(e.error.error);
+        //console.error(e.error.mensaje);
+        //console.error(e.error.error);
         iziToast.error({
           title: 'Error',
           message: e.error.mensaje
@@ -157,8 +158,23 @@ export class ClienteService {
           title: 'Error',
           message: e.error.mensaje,
         });
-       // Swal.fire(e.error.mensaje, e.error.error, 'error');
-        //return throwError(e);
+        return throwError(() => e);
+      })
+
+    );
+  }
+
+  //Cambia el estado de la direccion de envio
+  cambiarEstadoDireccionEnvio(id:number, idCliente:number) : Observable<Direcion>{
+    return this.http.put<Direcion>(this.url + '/direcciones/'+id+'/'+idCliente, { headers: this.agregarAuthorizationHeader() }).pipe(
+      catchError(e => {
+        if(this.isNoAutorizado(e)){
+          return throwError(() => e);
+        }
+        iziToast.error({
+          title: 'Error',
+          message: e.error.mensaje,
+        });
         return throwError(() => e);
       })
 
@@ -178,5 +194,54 @@ export class ClienteService {
   getEnvios(): Observable<any> {
     return this.http.get('./assets/envios.json');
   }
+
+  //token culqui
+  getTokenCulqui(data): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers= headers.append('Authorization','Bearer pk_test_3ab3f887be2b4fcd');    
+    return this.http.post('https://secure.culqi.com/v2/tokens', data, { headers: headers });
+  }
+
+  //Generar cargo
+  getChargeCulqui(data): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-Type', 'application/json');
+    headers= headers.append('Authorization','Bearer sk_test_4dbbae7b6d45e274');    
+    return this.http.post('https://api.culqi.com/v2/charges', data, { headers: headers });
+  }
+
+  //Crear contacto
+  createContacto(contacto: Contacto) {
+    return this.http.post(this.url + '/contacto', contacto, {
+      headers: this.httheaders,
+    });
+  }
+
+  //Obtener ordenes de compra
+  getOrdenesCompra(id): Observable<any>{
+    return this.http.get(`${this.url+'/ventas'}/${id}`);
+  }
+
+  //Obtener orden de compra
+  getOrdenCompra(id): Observable<any>{
+    return this.http.get(`${this.url+'/ventas/detalle'}/${id}`);
+  }
+
+  //Obtener promocion activa
+  getPromocion(): Observable<any>{
+    return this.http.get(`${this.url+'/promocion/activa'}`);
+  }
+
+  //Obtener cupon 
+  getCupon(codigo:string): Observable<any>{
+    return this.http.get(`${this.url+'/cupones/aplicar'}/${codigo}`).pipe(
+      catchError(e => {
+       // console.log(e.error.mensaje);
+        return throwError(() => e);
+      })
+    );;
+  }
+
 
 }

@@ -2,7 +2,7 @@
 
 <main class="cs-page-wrapper">
   <!-- Breadcrumb -->
-  <nav class="bg-secondary mb-3" aria-label="breadcrumb">
+  <nav style="background-color:rgb(236, 237, 243);" class="mb-3" aria-label="breadcrumb">
     <div class="container">
       <ol class="breadcrumb breadcrumb-alt mb-0">
         <li class="breadcrumb-item">
@@ -30,68 +30,92 @@
 
         <!-- Order review -->
         <h2 class="h4 mb-4">1. Detalles de orden</h2>
-        <div class="bg-secondary rounded mb-5" *ngIf="carritos.length >=1">
-          <!-- Item -->
-          <div *ngFor="let carrito of carritos" class="media px-2 px-sm-4 py-4 border-bottom">
-            <a [routerLink]="['/productos/',carrito.producto.slug ]" style="min-width: 80px;">
-              <img *ngIf="carrito.producto?.imagen"
-                src="http://localhost:9090/api/upload/img/{{carrito.producto.imagen}}" width="80"
-                alt="{{carrito.producto.imagen}}">
-            </a>
-            <div class="media-body w-100 pl-3">
-              <div class="d-sm-flex">
-                <div class="pr-sm-3 w-100" style="max-width: 16rem;">
-                  <h3 class="font-size-sm mb-3">
-                    <a [routerLink]="['/productos/',carrito.producto.slug ]"
-                      class="nav-link font-weight-bold">{{carrito.producto.titulo}}</a>
-                  </h3>
-                  <ul class="list-unstyled font-size-xs mt-n2 mb-2">
-                    <li class="mb-0"><span class="text-muted">Color:</span> Verde</li>
-                    <li class="mb-0"><span class="text-muted">Talla:</span> S</li>
-                  </ul>
+        <ng-container *ngIf="carrito_load">
+          <div style="background-color:rgb(236, 237, 243);"  class="rounded mb-5 p-3" >
+            <div class="row">
+              <div class="col-12 text-center">
+                <!-- Custom size border spinner -->
+                <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+                  <span class="sr-only">Loading...</span>
                 </div>
-                <div class="d-flex pr-sm-3">
-                  <input type="number" class="form-control form-control-sm bg-light mr-3" readonly
-                    style="width: 4.5rem;" value="{{carrito.cantidad}}">
-                  <div class="text-nowrap pt-2">
-                    <!--<strong class="text-danger">$15.00</strong> -->
-                    <span style="font-size:1.1rem !important;"
-                      class="font-size-xs text-muted">s/.{{carrito.precio}}</span>
+
+              </div>
+            </div>
+
+          </div>
+
+
+        </ng-container>
+        <ng-container *ngIf="!carrito_load">
+          <div style="background-color:rgb(236, 237, 243);"  class=" rounded mb-5" *ngIf="carritos.length >=1">
+            <!-- Item -->
+            <div *ngFor="let carrito of carritos" class="media px-2 px-sm-4 py-4 border-bottom">
+              <a [routerLink]="['/productos/',carrito.producto.slug ]" style="min-width: 80px;">
+                <img *ngIf="carrito.producto?.imagen"
+                  src="http://localhost:9090/api/upload/img/{{carrito.producto.imagen}}" width="80"
+                  alt="{{carrito.producto.imagen}}">
+              </a>
+              <div class="media-body w-100 pl-3">
+                <div class="d-sm-flex">
+                  <div class="pr-sm-3 w-100" style="max-width: 16rem;">
+                    <h3 class="font-size-sm mb-3">
+                      <a [routerLink]="['/productos/',carrito.producto.slug ]"
+                        class="nav-link font-weight-bold">{{carrito.producto.titulo}}</a>
+                    </h3>
+                    <ul class="list-unstyled font-size-xs mt-n2 mb-2">
+                      <li class="mb-0"><span class="text-muted">Talla: </span>{{carrito.talla}}</li>
+                    </ul>
+                  </div>
+                  <div class="d-flex pr-sm-3">
+                    <input type="number" class="form-control form-control-sm bg-light mr-3" readonly
+                      style="width: 4.5rem;" value="{{carrito.cantidad}}">
+                    <div class="text-nowrap pt-2">
+                      <strong class="text-danger mr-1" *ngFor="let item of promociones">S/. {{carrito.producto.precio|promocion:item.descuento}}</strong>
+                      <span class="font-size-xs text-muted">s/.{{carrito.producto.precio}}.00</span>
+                    </div>
+                  </div>
+                  <div class="d-flex pr-sm-3" *ngIf="!promociones">
+                    <input type="number" class="form-control form-control-sm bg-light mr-3" readonly
+                      style="width: 4.5rem;" value="{{carrito.cantidad}}">
+                    <div class="text-nowrap pt-2">
+                      <span style="font-size:1.2rem !important;" class="font-size-xs text-muted">s/.{{carrito.producto.precio}}.00</span>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center flex-sm-column text-sm-center ml-sm-auto pt-3 pt-sm-0">
+                    <button (click)="eliminarCarrito(carrito.id)"
+                      class="btn btn-outline-danger btn-sm mr-2 mr-sm-0">Eliminar</button>
+                   
                   </div>
                 </div>
-                <div class="d-flex align-items-center flex-sm-column text-sm-center ml-sm-auto pt-3 pt-sm-0">
-                  <button (click)="eliminarCarrito(carrito.id)"
-                    class="btn btn-outline-danger btn-sm mr-2 mr-sm-0">Eliminar</button>
-                  <button class="btn btn-link btn-sm text-decoration-none pt-0 pt-sm-2 px-0 pb-0 mt-0 mt-sm-1">
-                    Mover a
-                    <i class="cxi-heart ml-1"></i>
-                  </button>
-                </div>
+              </div>
+            </div>
+
+            <div class="px-3 px-sm-4 py-4 text-right">
+              <span class="text-muted">Subtotal:<strong
+                  class="text-dark font-size-lg ml-2">s/.{{subTotal}}</strong></span>
+            </div>
+          </div>
+          <div style="background-color:rgb(236, 237, 243);" class="rounded mb-5 p-3" *ngIf="carritos.length ==0">
+            <div class="row">
+              <div class="col-lg-3">
+                <img src="assets/img/carrito-de-compras.png" style="width: 100%;" alt="empty-cart" class="img-fluid">
+
+              </div>
+              <div class="col-lg-9" style="display: flex; align-items:center !important;">
+                <!-- Description list basic example -->
+                <dl style="font-size:1.5rem !important;">
+                  <dt>Upps! 😊</dt>
+                  <dd>Tu carrito está vacío</dd>
+                </dl>
+
               </div>
             </div>
           </div>
 
-          <div class="px-3 px-sm-4 py-4 text-right">
-            <span class="text-muted">Subtotal:<strong
-                class="text-dark font-size-lg ml-2">s/.{{subTotal}}</strong></span>
-          </div>
-        </div>
-        <div class="bg-secondary rounded mb-5 p-3" *ngIf="carritos.length ==0">
-          <div class="row">
-            <div class="col-lg-3">
-              <img src="assets/img/carrito-de-compras.png" style="width: 100%;" alt="empty-cart" class="img-fluid">
+        </ng-container>
 
-            </div>
-            <div class="col-lg-9" style="display: flex; align-items:center !important;">
-              <!-- Description list basic example -->
-              <dl style="font-size:1.5rem !important;">
-                <dt>Upps! 😊</dt>
-                <dd>Tu carrito está vacío</dd>
-              </dl>
 
-            </div>
-          </div>
-        </div>
+
 
         <!-- Adresses -->
         <h2 class="h4 mb-4">2. Dirección de envío</h2>
@@ -136,7 +160,7 @@
         <h2 class="h4 mb-4">3. Métodos de envío</h2>
         <div class="custom-control custom-radio mb-3" *ngFor="let envio of envios">
           <input (change)="calcularTotal(envio.titulo)" type="radio" class="custom-control-input" id="courier"
-            name="shipping" value="{{envio.precio}}" name="precioEnvio" [(ngModel)]="precioEnvio">
+            value="{{envio.precio}}" name="precioEnvio" [(ngModel)]="precioEnvio">
           <label for="courier" class="custom-control-label d-flex align-items-center">
             <span>
               <strong class="d-block">{{envio.titulo}}</strong>
@@ -170,19 +194,19 @@
                   <div class="card-body pt-3 pb-0">
                     <div class="form-group mb-3">
                       <label for="cc-number">Número de tarjeta</label>
-                      <input type="text" id="cc-number" class="form-control form-control-lg" data-format="card"
-                        placeholder="0000 0000 0000 0000">
+                      <input name="ncard" [(ngModel)]="card_data.ncard" type="text" id="cc-number" style="font-size:1rem ;"
+                        class="form-control form-control-lg" data-format="card" placeholder="0000 0000 0000 0000">
                     </div>
                     <div class="d-flex">
                       <div class="form-group mb-3 mr-3">
                         <label for="cc-exp-date">Fecha de caducidad</label>
-                        <input type="text" id="cc-exp-date" class="form-control form-control-lg" data-format="date"
-                          placeholder="mm/yy">
+                        <input name="exp" [(ngModel)]="card_data.exp" type="text" id="cc-exp-date" style="font-size:1rem ;"
+                          class="form-control form-control-lg" data-format="date" placeholder="mm/yy">
                       </div>
                       <div class="form-group mb-3">
                         <label for="cc-cvc">CVC</label>
-                        <input type="text" id="cc-cvc" class="form-control form-control-lg" data-format="cvc"
-                          placeholder="000">
+                        <input name="cvc" [(ngModel)]="card_data.cvc" type="text" id="cc-cvc" style="font-size:1rem ;"
+                          class="form-control form-control-lg" data-format="cvc" placeholder="000">
                       </div>
                     </div>
                   </div>
@@ -249,13 +273,16 @@
             <div class="form-group">
               <label for="promo-code">Aplicar un código promocional</label>
               <div class="input-group input-group-lg">
-                <input type="text" id="promo-code" class="form-control" placeholder="Introduce el código promocional">
+                <input type="text" id="promo-code" class="form-control" name="cupon" [(ngModel)]="cupon" style="font-size:1rem ;" placeholder="Introduce el código promocional">
                 <div class="input-group-append">
-                  <button type="button" class="btn btn-success">&nbsp;&nbsp;Aplicar&nbsp;&nbsp;</button>
+                  <button type="button" class="btn btn-success" (click)=" validar_cupon()" >&nbsp;&nbsp;Aplicar&nbsp;&nbsp;</button>
                 </div>
               </div>
+              <div *ngIf="error_cupon" class="alert alert-danger mt-3" role="alert">
+                {{error_cupon}}
+              </div>
             </div>
-            <div class="bg-secondary rounded mb-4">
+            <div style="background-color:rgb(236, 237, 243);" class="rounded mb-4">
               <div class="border-bottom p-4">
                 <h2 class="h4 mb-0">Total Orden</h2>
               </div>
@@ -270,7 +297,7 @@
                 </li>
                 <li class="d-flex justify-content-between mb-2">
                   <span>Descuento:</span>
-                  <span>&mdash;</span>
+                  <span>- S/. {{descuentoc}}</span>
                 </li>
               </ul>
               <div class="d-flex justify-content-between p-4">
@@ -278,7 +305,15 @@
                 <span class="h5 mb-0">s/.{{totalPagar}}</span>
               </div>
             </div>
-            <button type="button" class="btn btn-success btn-lg btn-block">Completar orden</button>
+            <ng-container *ngIf="carritos.length >=1">
+              <button *ngIf="!btn_load" (click)="getTokenCulqui()" type="button" style="font-size:1rem ;"
+                class="btn btn-success btn-lg btn-block">Completar orden</button>
+              <button *ngIf="btn_load" type="button" class="btn btn-secondary btn-lg btn-block">
+                <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+                Procesando...
+              </button>
+            </ng-container>
+
           </div>
         </div>
       </aside>

@@ -18,3 +18,8 @@
     color: #fff !important;
     box-shadow: 0 3px 5px 0 rgb(255 83 91 / 30%);
 }
+
+.active  {
+    color: #FF535B !important;
+}
+

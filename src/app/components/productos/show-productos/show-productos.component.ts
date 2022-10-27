@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Carrito } from 'src/app/models/carrito';
 import { Cliente } from 'src/app/models/cliente';
 import { Product } from 'src/app/models/producto';
@@ -7,6 +7,7 @@ import { CategoriaService } from 'src/app/sercices/categoria.service';
 import { ClienteService } from 'src/app/sercices/cliente.service';
 import { ProductoService } from 'src/app/sercices/producto.service';
 import { AuthService } from 'src/app/sercices/auth.service';
+import { Promocion } from 'src/app/models/promocion';
 
 declare var tns;
 declare var lightGallery: any;
@@ -21,8 +22,10 @@ export class ShowProductosComponent implements OnInit {
   public producto: Product;
   public carrito: Carrito = new Carrito();
   public cliente:Cliente= new Cliente();
+  public opcionSeleccionado: string ;
 
   public productos: Product[] = [];
+  public promociones:Promocion[]=[];
   public slug;
 
   public btn_cart=false;
@@ -32,12 +35,15 @@ export class ShowProductosComponent implements OnInit {
     private activateRoute: ActivatedRoute,
     private categoriaService: CategoriaService,
     private clienteService: ClienteService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router:Router
   ) {
     this.activateRoute.params.subscribe((params) => {
       this.slug = params['slug'];
       this.productoService.getProductsSlug(this.slug).subscribe((response) => {
         this.producto = response;
+       
+        
         this.categoriaService.getProductosPorCategoria(this.producto.categoria.id).subscribe(
           respuesta => {
             this.productos = respuesta;
@@ -51,6 +57,7 @@ export class ShowProductosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.carrito.cantidad = 1;
     this.clienteService.getCliente(this.authService.usuario.id).subscribe(  
       response => {
         this.cliente = response;
@@ -127,6 +134,16 @@ export class ShowProductosComponent implements OnInit {
 
     }, 500);
 
+    this.clienteService.getPromocion().subscribe(response=>
+      {
+        if(response!=null){
+        this.promociones=response;        
+        }else{
+          console.log("No hay promocion");
+        }
+      }
+    );
+
   }
 
   agregarCarrito() {
@@ -138,7 +155,14 @@ export class ShowProductosComponent implements OnInit {
       this.carrito.cliente = this.cliente;
       this.carrito.precio = this.producto.precio;
       this.carrito.cantidad = this.carrito.cantidad;
-      this.btn_cart=true;
+      this.carrito.talla = this.opcionSeleccionado
+      if (this.carrito.talla == null) {
+        iziToast.error({
+          title: 'Error',
+          message: 'Debe seleccionar una talla',
+          position: 'topRight',
+        });
+      } else {
 
       this.clienteService.agregarCarrito(this.carrito).subscribe(
         response => {
@@ -151,9 +175,13 @@ export class ShowProductosComponent implements OnInit {
             position: 'topRight',
             message: 'Se agrego el producto al carrito',
           });
+          this.router.navigate(['/carrito']);
+
+
         }
       );
       this.btn_cart=false;
+      }
 
     } else {
       iziToast.show({
@@ -167,4 +195,5 @@ export class ShowProductosComponent implements OnInit {
     }
 
   }
+
 }

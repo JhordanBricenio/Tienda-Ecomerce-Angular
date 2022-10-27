@@ -9,6 +9,7 @@ export class Dventa {
     producto: Product;
     importe: number;
     venta_id: number;
+    talla: string;
 
     //Calculate the subtotal
     getSubtotal(): number {

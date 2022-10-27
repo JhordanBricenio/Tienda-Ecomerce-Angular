@@ -1,7 +1,7 @@
 <app-nav></app-nav>
 <main class="cs-page-wrapper">
   <!-- Breadcrumb -->
-  <nav class="bg-secondary mb-3" aria-label="breadcrumb">
+  <nav  style="background-color:rgb(236, 237, 243);" class="mb-3"  aria-label="breadcrumb">
     <div class="container">
       <ol class="breadcrumb breadcrumb-alt mb-0">
         <li class="breadcrumb-item">
@@ -26,67 +26,37 @@
       <div class="col-md-6 mb-md-0 mb-4">
 
         <!-- Product gallery -->
-        <div class="cs-carousel cs-gallery cs-product-gallery mx-auto" style="max-width: 570px;">
+        <div *ngIf="producto" class="cs-carousel cs-gallery cs-product-gallery mx-auto" style="max-width: 570px;">
           <div class="cs-carousel-inner" data-carousel-options=''>
 
             <!-- Product gallery item -->
-            <a class="cs-gallery-item" *ngIf="producto?.imagen" href="http://localhost:9090/api/upload/img/{{producto.imagen}}"
-              data-sub-html='<h6 class="text-light">Gallery image caption #1</h6>'>
+            <a   class="cs-gallery-item"  href="http://localhost:9090/api/upload/img/{{producto.imagen}}"
+              data-sub-html='h6 class="text-light">Imagen #{{1}}/h6>'>
               <img  *ngIf="producto?.imagen" src="http://localhost:9090/api/upload/img/{{producto.imagen}}"
                     alt="{{producto?.imagen}}"  class="rounded">
-              <span class="cs-gallery-caption">Gallery image caption #1</span>
+              <span class="cs-gallery-caption">Imagen #1</span>
             </a>
-            
-
-            <!-- Product gallery item -->
-            <a class="cs-gallery-item" href="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg"
-              data-sub-html='<h6 class="text-light">Gallery image caption #2</h6>'>
-              <img class="rounded" src="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg"
-                alt="Carousel image">
-              <span class="cs-gallery-caption">Gallery image caption #2</span>
+            <a   class="cs-gallery-item" *ngFor="let item of producto.imagenes; let indice=index" href="http://localhost:9090/api/upload/img/{{item.url}}"
+              data-sub-html='h6 class="text-light">Imagen #{{indice+2}}/h6>'>
+              <img  *ngIf="producto?.imagenes" src="http://localhost:9090/api/upload/img/{{item.url}}"
+                    alt="{{producto?.imagen}}"  class="rounded">
+              <span class="cs-gallery-caption">Imagen #{{indice+2}}</span>
             </a>
 
-            <!-- Product gallery item -->
-            <a class="cs-gallery-item" href="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg"
-              data-sub-html='<h6 class="text-light">Gallery image caption #3</h6>'>
-              <img class="rounded" src="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg"
-                alt="Carousel image">
-              <span class="cs-gallery-caption">Gallery image caption #3</span>
-            </a>
 
-            <!-- Product gallery item -->
-            <a class="cs-gallery-item" href="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg"
-              data-sub-html='<h6 class="text-light">Gallery image caption #4</h6>'>
-              <img class="rounded" src="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg"
-                alt="Carousel image">
-              <span class="cs-gallery-caption">Gallery image caption #4</span>
-            </a>
+            <!-- Product gallery video item-->
 
-            <!-- Product gallery video item -->
-            <a class="cs-gallery-item video-item" href="https://www.youtube.com/watch?v=1vrXpMLLK14"
-              data-sub-html='<h6 class="text-light">Gallery image caption #5</h6>'>
-              <img class="rounded" src="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg"
-                alt="Carousel image">
-              <span class="cs-gallery-caption">Gallery image caption #5</span>
-            </a>
           </div>
 
           <!-- Product gallery thumbnails -->
           <div class="cs-thumbnails" id="cs-thumbnails">
-            <button type="button" data-nav="0">
-              <img src="https://createx.createx.studio/assets/img/ecommerce/shop/single/01.jpg" alt="Thumbnail">
+            <button type="button" data-nav="0" *ngIf="producto" >
+              <img *ngIf="producto?.imagen" src="http://localhost:9090/api/upload/img/{{producto.imagen}}"
+              alt="{{producto?.imagen}}">
             </button>
-            <button type="button" data-nav="1">
-              <img src="https://createx.createx.studio/assets/img/ecommerce/shop/single/02.jpg" alt="Thumbnail">
-            </button>
-            <button type="button" data-nav="2">
-              <img src="https://createx.createx.studio/assets/img/ecommerce/shop/single/03.jpg" alt="Thumbnail">
-            </button>
-            <button type="button" data-nav="3">
-              <img src="https://createx.createx.studio/assets/img/ecommerce/shop/single/04.jpg" alt="Thumbnail">
-            </button>
-            <button type="button" data-nav="4" class="video-indicator">
-              <img src="https://createx.createx.studio/assets/img/ecommerce/shop/single/05.jpg" alt="Thumbnail">
+            <button type="button" data-nav="0"  *ngFor="let item of producto.imagenes" >
+              <img *ngIf="producto?.imagenes" src="http://localhost:9090/api/upload/img/{{item.url}}"
+              alt="{{producto?.imagen}}">
             </button>
           </div>
         </div>
@@ -95,13 +65,17 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
 
           <!-- Price -->
-          <div class="d-flex align-items-center mb-sm-0 mb-4">
-            <span *ngIf="producto"   class="h3 d-inline-block mb-0 text-danger">S/.{{producto.precio}}</span>
-            <del class="d-inline-block ml-2 pl-1 font-size-lg text-muted">S/.31.00</del>
-            <span class="ml-4 p-2 badge badge-danger font-size-base font-weight-bold">- 50%</span>
+          <div class="d-flex align-items-center mb-sm-0 mb-4" *ngFor="let item of promociones">
+            <span *ngIf="producto"   class="h3 d-inline-block mb-0 text-danger">S/.{{producto.precio|promocion:item.descuento}}.00</span>
+           <del class="d-inline-block ml-2 pl-1 font-size-lg text-muted">S/.{{producto.precio}}.00</del>
+            <span class="ml-4 p-2 badge badge-danger font-size-base font-weight-bold">- {{item.descuento}}%</span>
           </div>
 
-          <!-- Rating -->
+          <div class="d-flex align-items-center mb-sm-0 mb-4" *ngIf="promociones.length==0">
+            <span *ngIf="producto"   class="h3 d-inline-block mb-0">S/.{{producto.precio}}.00</span>
+          </div>
+
+          <!-- Rating 
           <div class="text-sm-right">
             <div class="star-rating ml-auto">
               <i class="sr-star cxi-star-filled active"></i>
@@ -111,7 +85,7 @@
               <i class="sr-star cxi-star"></i>
             </div>
             <span class="font-size-sm text-muted">12 reseñas</span>
-          </div>
+          </div>-->
         </div>
 
         <!-- Ordering form -->
@@ -151,13 +125,12 @@
           </div>
           -->
           <div class="col-sm-8 order-sm-1 order-2">
-            <div class="form-group">
+            <div class="form-group" *ngIf="producto">
               <label for="size">Tallas</label>
-              <select class="form-control custom-select" id="size">
-                <option>Sellecione una talla</option>
-                <option>Talla 1</option>
-                <option>Talla 2</option>
-                <option>Talla 3</option>
+              <select *ngIf="producto.variedades"  class="form-control custom-select" [(ngModel)]="opcionSeleccionado" id="size"
+              name="opcionSeleccionado">
+                <option [ngValue]="undefined" disabled selected >Selecciona una opción</option>
+                <option value="{{item.variedades}}"  *ngFor="let item of producto.variedades" >{{item.variedades}}</option>
               </select>
             </div>
           </div>
@@ -171,7 +144,7 @@
           <div class="col-lg-2 col-4 order-lg-3 order-3">
             <div class="form-group">
               <select class="form-control custom-select" id="select-input" name="cantidad" [(ngModel)]="carrito.cantidad" >
-                <option value="1">1</option>
+                <option value="1" disabled selected >1</option>
                 <option value="2">2</option>
                 <option value="5">5</option>
                 <option value="10">10</option>
@@ -189,12 +162,12 @@
               Agregando...
             </button>
           </div>
-          <div class="col-lg-4 col-8 order-lg-5 order-2">
+          <!-- <div class="col-lg-4 col-8 order-lg-5 order-2">
             <button class="btn btn-block btn-outline-danger px-lg-4">
               <i class="cxi-heart mr-2"></i>
               A Deseos
             </button>
-          </div>
+          </div> -->
         </form>
 
         <!-- Terms -->
@@ -214,7 +187,7 @@
             <div class="collapse" id="delivery" aria-labelledby="delivery-card" data-parent="#productTerms">
               <div class="card-body">
                 <p class="font-size-sm">
-                  Envío estándar gratuito en pedidos <strong>superiores a $ 35</strong> antes de impuestos, más devoluciones gratuitas.
+                  Envío estándar gratuito en pedidos <strong>superiores a s/. 500</strong> antes de impuestos, más devoluciones gratuitas.
                 </p>
 
                 <!-- Delivery table -->
@@ -222,26 +195,26 @@
                   <table class="table mb-0" style="min-width: 450px;">
                     <thead class="font-size-xs text-uppercase text-muted">
                       <tr>
-                        <th class="border-0 font-weight-normal">Type</th>
-                        <th class="border-0 font-weight-normal">How long</th>
-                        <th class="border-0 font-weight-normal">How much</th>
+                        <th class="border-0 font-weight-normal">Tipo</th>
+                        <th class="border-0 font-weight-normal">Cuánto tiempo</th>
+                        <th class="border-0 font-weight-normal">Cuánto</th>
                       </tr>
                     </thead>
                     <tbody class="font-size-sm">
                       <tr>
-                        <th class="font-weight-normal">Standard delivery</th>
-                        <td>1-4 business days</td>
-                        <td>$4.50</td>
+                        <th class="font-weight-normal">Envío estándar</th>
+                        <td>1-4 días hábiles</td>
+                        <td>s/.25.00</td>
                       </tr>
                       <tr>
-                        <th class="font-weight-normal">Express delivery</th>
-                        <td>1 business day</td>
-                        <td>$10.00</td>
+                        <th class="font-weight-normal">Envío Express</th>
+                        <td>1 día hábil</td>
+                        <td>s/.15.00</td>
                       </tr>
                       <tr>
-                        <th class="font-weight-normal">Pick up in store</th>
-                        <td>1-3 business days</td>
-                        <td>Free</td>
+                        <th class="font-weight-normal">Recogo en Tienda</th>
+                        <td>1-3 días hábiles</td>
+                        <td>Gratis</td>
                       </tr>
                     </tbody>
                   </table>
@@ -262,11 +235,11 @@
             </div>
             <div class="collapse" id="return" aria-labelledby="return-card" data-parent="#productTerms">
               <p class="font-size-sm">
-                Tiene <strong>60 días</strong> para devolver los artículos utilizando cualquiera de los siguientes métodos:
+                Tiene <strong>15 días</strong> para devolver los artículos utilizando cualquiera de los siguientes métodos:
               </p>
               <ul class="mb-4 pl-3">
                 <li>Devolución gratuita a la tienda</li>
-                <li>Devoluciones gratuitas a través del servicio de entrega de USPS</li>
+                <li>Devoluciones gratuitas a través del servicio contacto</li>
               </ul>
             </div>
           </div>
@@ -275,27 +248,27 @@
         <!-- Share -->
         <div class="mb-5 text-nowrap">
           <h6 class="d-inline-block align-middle mr-2 mb-0">Compartir:</h6>
-          <a href="#" class="social-btn sb-solid align-middle mr-2" data-toggle="tooltip" title="Facebook">
+          <a  class="social-btn sb-solid align-middle mr-2" data-toggle="tooltip" title="Facebook">
             <i class="cxi-facebook"></i>
           </a>
-          <a href="#" class="social-btn sb-solid align-middle mr-2" data-toggle="tooltip" title="Twitter">
+          <a class="social-btn sb-solid align-middle mr-2" data-toggle="tooltip" title="Twitter">
             <i class="cxi-twitter"></i>
           </a>
-          <a href="#" class="social-btn sb-solid align-middle" data-toggle="tooltip" title="Pinterest">
+          <a  class="social-btn sb-solid align-middle" data-toggle="tooltip" title="Pinterest">
             <i class="cxi-pinterest"></i>
           </a>
         </div>
 
         <!-- Payment -->
         <div class="pb-3 text-nowrap" data-simplebar data-simplebar-auto-hide="false">
-          <a href="#" class="d-inline-block mb-3 mr-xl-4 mr-3">
+          <a  class="d-inline-block mb-3 mr-xl-4 mr-3">
             <img src="../../assets/img/visa.jpg" alt="Visa" class="border rounded">
           </a>
-          <a href="#" class="d-inline-block mb-3 mr-xl-4 mr-3">
+          <a  class="d-inline-block mb-3 mr-xl-4 mr-3">
             <img src="../../assets/img/master-card.jpg" alt="Mastercard"
               class="border rounded">
           </a>
-          <a href="#" class="d-inline-block mb-3">
+          <a class="d-inline-block mb-3">
             <img src="../../assets/img/pay-pal.jpg" alt="PayPal" class="border rounded">
           </a>
         </div>
@@ -317,10 +290,18 @@
 
   <section class="container py-md-6 py-5 mb-2">
     <div class="row">
+      <div class="row mb-5" *ngFor="let item of promociones">
+        <div class="col-12">
+          <img  src="http://localhost:9090/api/upload/img/{{item.banner}}"
+                      alt="{{item.banner}}" class="img-thumbnail rounded">
+        </div>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-lg-7 col-md-8 mb-md-0 mb-5">
         <div class="row mb-sm-5 mb-4 pb-2 pb-md-4">
 
-          <!-- Rating -->
+          <!-- Rating 
           <div class="col-sm-5 mb-sm-0 mb-4">
             <h3 class="h2 mb-3 pb-1">12 reseñas</h3>
             <div class="star-rating mb-3 pb-1">
@@ -334,12 +315,12 @@
               9 out of 12 (75%) <br>
               Los clientes recomendaron este producto
             </span>
-          </div>
+          </div>-->
 
           <!-- Reviews -->
           <div class="col-sm-7">
 
-            <!-- 5 stars -->
+            <!-- 5 stars 
             <div class="d-flex align-items-center mb-2">
               <div class="text-nowrap text-muted mr-3">
                 <span class="d-inline-block align-middle">5</span>
@@ -352,9 +333,9 @@
                 </div>
               </div>
               <span class="text-muted ml-3">7</span>
-            </div>
+            </div>-->
 
-            <!-- 4 stars -->
+            <!-- 4 stars
             <div class="d-flex align-items-center mb-2">
               <div class="text-nowrap text-muted mr-3">
                 <span class="d-inline-block align-middle">4</span>
@@ -367,9 +348,9 @@
                 </div>
               </div>
               <span class="text-muted ml-3">2</span>
-            </div>
+            </div>-->
 
-            <!-- 3 stars -->
+            <!-- 3 stars
             <div class="d-flex align-items-center mb-2">
               <div class="text-nowrap text-muted mr-3">
                 <span class="d-inline-block align-middle">3</span>
@@ -382,9 +363,9 @@
                 </div>
               </div>
               <span class="text-muted ml-3">1</span>
-            </div>
+            </div>-->
 
-            <!-- 2 stars -->
+            <!-- 2 stars
             <div class="d-flex align-items-center mb-2">
               <div class="text-nowrap text-muted mr-3">
                 <span class="d-inline-block align-middle">2</span>
@@ -397,9 +378,9 @@
                 </div>
               </div>
               <span class="text-muted ml-3">1</span>
-            </div>
+            </div>-->
 
-            <!-- 1 star -->
+            <!-- 1 star 
             <div class="d-flex align-items-center">
               <div class="text-nowrap text-muted mr-3">
                 <span class="d-inline-block align-middle">1</span>
@@ -412,7 +393,7 @@
                 </div>
               </div>
               <span class="text-muted ml-3">1</span>
-            </div>
+            </div>-->
           </div>
         </div>
 
@@ -420,13 +401,6 @@
         <div class="d-flex align-items-center justify-content-between mb-4 pb-2 pb-sm-4">
           <a href="#modal-review" data-toggle="modal" class="btn btn-info">Deja un comentario</a>
           <div class="form-inline">
-            <label for="sort-orders" class="d-none d-sm-block font-weight-bold mr-2 pr-1">Sort by</label>
-            <select id="sort-orders" class="custom-select">
-              <option>Newest</option>
-              <option>Oldest</option>
-              <option>High rating</option>
-              <option>Low rating</option>
-            </select>
           </div>
         </div>
 
@@ -434,29 +408,12 @@
         <div class="mb-4 pb-4 border-bottom">
           <div class="row">
             <div class="col-md-3 col-sm-4 mb-sm-0 mb-3">
-              <h3 class="mb-2 font-size-lg">Devon Lane</h3>
-              <span class="d-block mb-3 font-size-sm text-muted">3 days ago</span>
-              <div class="mt-n1 star-rating">
-                <i class="sr-star cxi-star-filled active"></i>
-                <i class="sr-star cxi-star-filled active"></i>
-                <i class="sr-star cxi-star-filled active"></i>
-                <i class="sr-star cxi-star-filled active"></i>
-                <i class="sr-star cxi-star-filled active"></i>
-              </div>
+              <h3 class="mb-2 font-size-lg">Jhordan Briceño</h3>
+              <span class="d-block mb-3 font-size-sm text-muted">Octubre 19, 2022</span>
             </div>
             <div class="col">
-              <p class="mb-3">Vel velit pulvinar montes, sit rhoncus odio molestie. Venenatis nunc fames ut proin
-                adipiscing sit. Etiam egestas elit varius a, vestibulum bibendum nibh sociis in. Ut facilisis sit eget
-                cum fringilla. Dapibus mauris viverra est sed risus quam lacinia.</p>
+              <p class="mb-3">Gracias excelente producto.</p>
               <div class="d-flex justify-content-end">
-                <a class="nav-link mr-3 p-0 font-size-sm" href="#">
-                  <i class="cxi-like mr-2 font-size-base align-middle mt-n1 text-success"></i>
-                  2
-                </a>
-                <a class="nav-link p-0 font-size-sm" href="#">
-                  <i class="cxi-dislike mr-2 font-size-base align-middle mt-n1 text-danger"></i>
-                  0
-                </a>
               </div>
             </div>
           </div>
@@ -466,28 +423,12 @@
         <div class="mb-4 pb-4 border-bottom">
           <div class="row">
             <div class="col-md-3 col-sm-4 mb-sm-0 mb-3">
-              <h3 class="mb-2 font-size-lg">Annette Black</h3>
-              <span class="d-block mb-3 font-size-sm text-muted">November 29, 2020</span>
-              <div class="mt-n1 star-rating">
-                <i class="sr-star cxi-star-filled active"></i>
-                <i class="sr-star cxi-star-filled active"></i>
-                <i class="sr-star cxi-star-filled active"></i>
-                <i class="sr-star cxi-star-filled active"></i>
-                <i class="sr-star cxi-star"></i>
-              </div>
+              <h3 class="mb-2 font-size-lg">Jhordan Briceño</h3>
+              <span class="d-block mb-3 font-size-sm text-muted">Octubre 19, 2022</span>
             </div>
             <div class="col">
-              <p class="mb-3">Amet ut augue dignissim lorem. Diam volutpat porttitor vel, pulvinar semper. Faucibus vel
-                accumsan mi diam magna. Nunc diam lorem semper rhoncus in ut. Quis risus viverra bibendum eu.</p>
+              <p class="mb-3">Gracias por producto</p>
               <div class="d-flex justify-content-end">
-                <a class="nav-link mr-3 p-0 font-size-sm" href="#">
-                  <i class="cxi-like mr-2 font-size-base align-middle mt-n1 text-success"></i>
-                  5
-                </a>
-                <a class="nav-link p-0 font-size-sm" href="#">
-                  <i class="cxi-dislike mr-2 font-size-base align-middle mt-n1 text-danger"></i>
-                  1
-                </a>
               </div>
             </div>
           </div>
@@ -559,8 +500,8 @@
                 <h3 class="card-product-title text-truncate mb-2">
                   <a [routerLink]="['/productos/',item.slug ]"  target="_blank" class="nav-link">{{item.titulo}}</a>
                 </h3>
-                <div class="d-flex align-items-center">
-                  <span class="h5 d-inline-block mb-0">{{item.precio}}</span>
+                <div class="d-flex align-items-center" *ngIf="!promociones">
+                  <span class="h5 d-inline-block mb-0">S/.{{item.precio}}.00</span>
                 </div>
               </div>
             </div>
