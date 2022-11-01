@@ -31,8 +31,10 @@ export class IndexProductoComponent implements OnInit {
   public pagination: any;
   public btn_cart:boolean=false;
   public filter_cat_productos='todos';
+  public filtro:string='';
+  public totalProductos:number=0;
 
-  constructor(private productoService: ProductoService,
+  constructor(public productoService: ProductoService,
     private categoriaService:CategoriaService, 
     private clienteService: ClienteService,
     private activateRoute: ActivatedRoute,
@@ -44,6 +46,16 @@ export class IndexProductoComponent implements OnInit {
       response => {
         this.cliente = response;
         this.carrito.cliente = this.cliente;
+      }
+    );
+
+    this.productoService.countProducts().subscribe(
+      response=>{
+        this.totalProductos=response;
+        
+        return this.totalProductos;
+       
+        
       }
     );
    
@@ -61,7 +73,7 @@ export class IndexProductoComponent implements OnInit {
       if (!page) {
         page = 0;
       }
-      this.productoService.getProducts(page).subscribe((response) => {
+      this.productoService.geProductsBySearch(page).subscribe((response) => {
         if(categoria){
           this.productos = this.producto;
           this.pagination = this.producto;
@@ -75,21 +87,51 @@ export class IndexProductoComponent implements OnInit {
     this.productoService.getCategorias().subscribe(
       response =>{
         this.categorias=response;
-      }
-    );
+        console.log(this.categorias);
+        
+      });
     this.clienteService.getPromocion().subscribe(response=>
       {
         if(response!=null){
         this.promociones=response ;
-        console.log(this.promociones);
-        
         
         }else{
           console.log("No hay promocion");
         }
       }
     );
+
+    //Contar productos por categoria
+    //Damas==1
+    //Casacas==2
+    //zapatos==3
+    
+
+
+   
+
+   
+      
+    }
+
+  
+
+  filtrar() {
+    if (this.filtro != null) {
+      console.log(this.filtro);
+      
+      this.productoService.geProductsBySearch(0,this.filtro).subscribe((response) => {
+        this.productos = response.products as Product[];        
+      }
+      );
+      
+    } 
+    }
+  reset(){
+    this.filtro = null;
+    this.ngOnInit();
   }
+
   filtrarPorCategoria(){
     if(this.filter_cat_productos=='todos'){
       this.activateRoute.paramMap.subscribe((params) => {
@@ -120,11 +162,25 @@ export class IndexProductoComponent implements OnInit {
       this.categoriaService.getProductosPorCategoria(this.filter_cat_productos).subscribe(
         response=>{
           this.productos=response;
+          console.log(this.productos);
+          
         }
       );
     }
     
     
+  }
+
+  //contar cantidda de productos por categoria
+  contarProductosPorCategoria(id:number){
+    this.productoService.countProductsByCategory(id).subscribe(
+      response=>{
+        console.log(response);
+        return response;
+        
+        
+      }
+    );
   }
 
   agregarCarrito(producto:Product) {

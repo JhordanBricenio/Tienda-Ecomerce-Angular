@@ -71,11 +71,17 @@
                 <div class="cs-widget pl-1 pr-3 pb-4 mt-n3">
                   <!-- Search desktop -->
                   <div class="input-group-overlay d-lg-block d-none order-lg-3">
-                    <input class="form-control appended-form-control" type="text" placeholder="Buscar Productos...">
+                    <input class="form-control appended-form-control" type="text" name="filtro" [(ngModel)]="filtro" placeholder="Buscar Productos...">
                     <div class="input-group-append-overlay">
-                      <span class="input-group-text"><i class="cxi-search lead align-middle"></i></span>
+                      <span class="input-group-text">
+                        <button style="border:none ; background-color: white;" (click)="filtrar()">
+                          <i *ngIf="filtro" class="cxi-search lead align-middle">                   
+                          </i>
+                        </button>       
+                      </span>
                     </div>
                   </div>
+                  <button type="submit" (click)="reset()" class="btn btn-dark mt-3">Todos</button>
                 </div>
               </div>
             </div>
@@ -94,7 +100,7 @@
               <div class="collapse show" id="category" aria-labelledby="category-panel">
                 <div class="cs-widget-data-list cs-filter">
 
-                  <ul class="cs-filter-list list-unstyled pr-3" style="height: 12rem;" data-simplebar
+                  <ul class="cs-filter-list list-unstyled pr-3" style="height: 16rem;" data-simplebar
                     data-simplebar-auto-hide="false">
                     <li class="cs-filter-item" >
                       <div class="custom-control custom-checkbox">
@@ -102,7 +108,7 @@
                         [(ngModel)]="filter_cat_productos">
                         <label for="blazers-todos" class="custom-control-label">
                           <span class="cs-filter-item-text">Todos</span>
-                          <span class="pl-1 text-muted">(235)</span>
+                          <span class="pl-1 text-muted">({{totalProductos}})</span>
                         </label>
                       </div>
                     </li>
@@ -113,19 +119,17 @@
                         [(ngModel)]="filter_cat_productos">
                         <label for="blazers-{{indice}}" class="custom-control-label">
                           <span class="cs-filter-item-text">{{categoria.nombre}}</span>
-                          <span class="pl-1 text-muted">(235)</span>
+                          <span class="pl-1 text-muted" ></span>
                         </label>
                       </div>
+                      
                     </li>
+                    <button type="submit" (click)="filtrarPorCategoria()" class="btn btn-dark mt-3">Filtrar</button>
 
                   </ul>
                 </div>
               </div>
             </div>
-            <button type="submit" (click)="filtrarPorCategoria()" class="btn btn-dark mt-3">Filtrar</button>
-
-
-
           </div>
         </div>
       </div>
@@ -134,8 +138,8 @@
       <!-- Product grid -->
       <div class="col">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3" data-filters-columns>
-
-          <!-- Item -->
+            <!-- Item -->
+         <ng-container *ngIf="productos.length>0">
           <div class="col pb-sm-2 mb-grid-gutter" *ngFor="let producto of productos">
             <div class="card card-product mx-auto">
               <div class="card-product-img">
@@ -193,8 +197,22 @@
             </div>
           </div>
 
+         </ng-container>
+        
+         
+         
+
 
         </div>
+        <ng-container *ngIf="productos.length<=0">
+          <div class="col-12">
+            <div class="alert alert-danger text-center" role="alert">
+              <h4 class="alert-heading">No hay productos 😟</h4>
+              <p>Por el momento no hay productos</p>
+              <hr>
+            </div>
+          </div>
+       </ng-container>
 
         <!-- Toolbar + Pagination -->
         <div class="d-flex align-items-center pt-md-4">

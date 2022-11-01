@@ -26,6 +26,17 @@ export class ProductoService {
       })
     );
   }
+  geProductsBySearch(page?:Number, filtro?:string):Observable<any>{
+    let url = 'http://localhost:9090/api/products';
+
+    if(filtro){
+      url += '?filtro='+filtro;
+    }else{
+      url += '/page/'+page;
+    }
+    return this.http.get<any>(url);
+    
+  }
 
   getProducts(page: number): Observable<any> {
     return this.http.get(this.url +'/products' + '/page/' + page).pipe(
@@ -69,6 +80,14 @@ export class ProductoService {
     return this.http.get('./assets/provincias.json');
   }
 
-  
+  //Contar Productos por categoria
+  countProductsByCategory(id): Observable<any> {
+    return this.http.get(this.url + '/products/categoria/count/' + id);
+  }
+
+  //Contar todos los productos
+  countProducts(): Observable<any> {
+    return this.http.get(this.url + '/products/count');
+  }
   
 }
