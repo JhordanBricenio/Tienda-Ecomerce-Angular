@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Carrito } from 'src/app/models/carrito';
 import { Cliente } from 'src/app/models/cliente';
+import { Direcion } from 'src/app/models/direcion';
 import { Dventa } from 'src/app/models/dventa';
 import { Venta } from 'src/app/models/venta';
 import { AuthService } from 'src/app/sercices/auth.service';
@@ -32,7 +33,7 @@ export class CarritoComponent implements OnInit {
 
   public subTotal = 0;
   public totalPagar: any = 0;
-  public direccion_principal: any = {};
+  public direccion_principal: Direcion;
   public envios: Array<any> = [];
   public precioEnvio = "0";
   public envio_titulo: string = "";
@@ -154,7 +155,7 @@ export class CarritoComponent implements OnInit {
           dventa.producto = element.producto;
           dventa.talla = element.talla;
           this.venta.dventas.push(dventa);
-          console.log(dventa);
+        //  console.log(dventa);
           
         });
         this.carrito_load = false;
@@ -228,7 +229,12 @@ export class CarritoComponent implements OnInit {
     this.clienteService.getDireccionesEnvioPrincipal(id).subscribe(
       response => {
         this.direccion_principal = response;
-        this.venta.direccion = this.direccion_principal;
+        //Construir   DIRECCION
+        this.venta.direccion= this.direccion_principal.pais+"-"+this.direccion_principal.region
+        +"-"+this.direccion_principal.provincia+"-"+this.direccion_principal.distrito
+        +"-"+this.direccion_principal.direccion;
+        //console.log("Diecc",this.venta.direccion);
+        
       }
     );
   }

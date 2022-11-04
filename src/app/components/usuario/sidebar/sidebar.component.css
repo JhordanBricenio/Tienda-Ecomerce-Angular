@@ -3,5 +3,7 @@
    margin-right: 50px;
 }
 .active {
-    background-color: #071b0c;
+    background-color:#FF535B !important;
+    border: none;
 }
+

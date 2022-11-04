@@ -1,3 +1,3 @@
 export var GLOBAL = {
-    url: 'http://localhost:9090/api'
+    url: 'http://api.mitactical.tk:9090/api/'
 }

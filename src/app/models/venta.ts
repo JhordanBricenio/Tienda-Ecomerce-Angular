@@ -12,7 +12,7 @@ export class Venta {
     estado: string;
     nota: string;
     fecha: Date;
-    direccion:Direcion
+    direccion:string
     dventas: Dventa[] = [];
     cliente: Cliente;
 

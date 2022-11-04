@@ -132,7 +132,7 @@
                   </div>
                   <div class="col-lg-12">
                     <!-- Description list basic example -->
-                    <dl>
+                    <dl *ngIf="direccion_principal" >
                       <dt>Destinatario</dt>
                       <dd>{{direccion_principal.destinatario}}</dd>
                       <dt>Dirección de envío</dt>
